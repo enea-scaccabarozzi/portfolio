@@ -30,6 +30,9 @@
       "options": {
         "jestConfig": "libs/backend/features/database/jest.config.ts"
       }
+    },
+    "db:generate": {
+      "command": "pnpm zenstack generate --schema ./libs/backend/features/database/schema.zmodel"
     }
   },
   "tags": []
