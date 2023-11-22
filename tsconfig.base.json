@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@portfolio/backend-features-database": [
+        "libs/backend/features/database/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
