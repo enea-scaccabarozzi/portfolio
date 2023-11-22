@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@portfolio/backend-features-api": [
+        "libs/backend/features/api/src/index.ts"
+      ],
       "@portfolio/backend-features-database": [
         "libs/backend/features/database/src/index.ts"
       ],
