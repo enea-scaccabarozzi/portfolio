@@ -42,3 +42,7 @@ Thumbs.db
 
 # Next.js
 .next
+
+# Sst
+.sst
+.open-next

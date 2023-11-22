@@ -1,0 +1,14 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "next": "*"
+  },
+  "scripts": {
+    "build": "next build",
+    "serve": "sst bind next dev",
+    "deploy:staging": "sst deploy --stage staging",
+    "deploy:prod": "sst deploy --stage prod"
+  }
+}
