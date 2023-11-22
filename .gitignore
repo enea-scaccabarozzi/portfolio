@@ -46,3 +46,6 @@ Thumbs.db
 # Sst
 .sst
 .open-next
+
+# Enviorment variables
+.env

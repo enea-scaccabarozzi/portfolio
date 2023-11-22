@@ -1,3 +1,4 @@
+import { env } from '@portfolio/backend-shared';
 import { PrismaClient } from '@prisma/client';
 
 export * from '@prisma/client';
@@ -8,9 +9,7 @@ export const prisma =
   globalForPrisma.prisma ||
   new PrismaClient({
     log:
-      process.env.NODE_ENV === 'development'
-        ? ['query', 'error', 'warn']
-        : ['error'],
+      env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   });
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+if (env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
