@@ -27,5 +27,6 @@
       "@portfolio/backend-shared": ["libs/backend/shared/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp"],
+  "files": ["./libs/backend/features/auth/src/lib/types.d.ts"]
 }

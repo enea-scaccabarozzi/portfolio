@@ -29,4 +29,4 @@ export const authOptions: NextAuthOptions = {
   providers: AppProviders,
 };
 
-export const AppAuth = NextAuth(authOptions) as unknown;
+export const AppAuth = NextAuth(authOptions);
