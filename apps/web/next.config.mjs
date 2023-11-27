@@ -1,7 +1,13 @@
 //@ts-check
 
-import '../../libs/backend/shared/src/lib/env.mjs';
 import { composePlugins, withNx } from '@nx/next';
+import bundleAnalyzer from '@next/bundle-analyzer';
+
+import '../../libs/backend/shared/src/lib/env.mjs';
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.WEB_BUNDLE_ANALYZE === 'true',
+});
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -25,4 +31,4 @@ const plugins = [
   withNx,
 ];
 
-export default composePlugins(...plugins)(nextConfig);
+export default withBundleAnalyzer(composePlugins(...plugins)(nextConfig));
