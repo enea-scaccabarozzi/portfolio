@@ -30,7 +30,7 @@ import {
  */
 type CreateContextOptions = {
   session: Session | null;
-  enchanchedPrisma: PrismaClient;
+  prisma: PrismaClient;
 };
 
 /**
@@ -45,7 +45,6 @@ type CreateContextOptions = {
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
-    enchanchedPrisma: opts.enchanchedPrisma,
     prisma,
   };
 };
@@ -62,12 +61,15 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const session = await getServerSession({ req, res });
   const enchanchedPrisma = enhance(prisma, { user: session?.user });
 
-  const contextInner = createInnerTRPCContext({ session, enchanchedPrisma });
+  const contextInner = createInnerTRPCContext({
+    session,
+    prisma: enchanchedPrisma,
+  });
 
   return createInnerTRPCContext({
     ...contextInner,
     session,
-    enchanchedPrisma,
+    prisma: prisma,
   });
 };
 

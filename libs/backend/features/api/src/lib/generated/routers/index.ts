@@ -16,6 +16,11 @@ import createAccountRouter from './Account.router';
 import createSessionRouter from './Session.router';
 import createUserRouter from './User.router';
 import createVerificationTokenRouter from './VerificationToken.router';
+import { ClientType as TestClientType } from './Test.router';
+import { ClientType as AccountClientType } from './Account.router';
+import { ClientType as SessionClientType } from './Session.router';
+import { ClientType as UserClientType } from './User.router';
+import { ClientType as VerificationTokenClientType } from './VerificationToken.router';
 
 export { PrismaClient } from '@prisma/client';
 
@@ -79,4 +84,12 @@ export function createRouter<Router extends RouterFactory<BaseConfig>, Proc exte
         user: createUserRouter<Router, Proc>(router, procedure),
         verificationToken: createVerificationTokenRouter<Router, Proc>(router, procedure),
     });
+}
+
+export interface ClientType<AppRouter extends AnyRouter> {
+    test: TestClientType<AppRouter>;
+    account: AccountClientType<AppRouter>;
+    session: SessionClientType<AppRouter>;
+    user: UserClientType<AppRouter>;
+    verificationToken: VerificationTokenClientType<AppRouter>;
 }

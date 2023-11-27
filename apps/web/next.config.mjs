@@ -12,6 +12,12 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  experimental: {
+    serverComponentsExternalPackages: [
+      '@zenstackhq/runtime',
+      '@zenstackhq/server',
+    ],
+  },
 };
 
 const plugins = [

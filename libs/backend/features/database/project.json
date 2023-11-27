@@ -4,16 +4,6 @@
   "sourceRoot": "libs/backend/features/database/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:swc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/backend/features/database",
-        "main": "libs/backend/features/database/src/index.ts",
-        "tsConfig": "libs/backend/features/database/tsconfig.lib.json",
-        "assets": ["libs/backend/features/database/*.md"]
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],

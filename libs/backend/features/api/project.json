@@ -4,16 +4,6 @@
   "sourceRoot": "libs/backend/features/api/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:swc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/backend/features/api",
-        "main": "libs/backend/features/api/src/index.ts",
-        "tsConfig": "libs/backend/features/api/tsconfig.lib.json",
-        "assets": ["libs/backend/features/api/*.md"]
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],

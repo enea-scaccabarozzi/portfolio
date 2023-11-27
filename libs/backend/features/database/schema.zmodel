@@ -9,10 +9,18 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+plugin zod {
+    provider = '@core/zod'
+    compile = true
+}
+
 plugin trpc {
     provider = '@zenstackhq/trpc'
     output = '../api/src/lib/generated'
+    generateClientHelpers = 'next'
 }
+
+
 
 model Test {
     id String @id @default(cuid())
