@@ -1,0 +1,13 @@
+{
+  "name": "docs",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "next": "*"
+  },
+  "scripts": {
+    "build": "next build",
+    "build:stats": "WEB_BUNDLE_ANALYZE=true next build",
+    "serve": "sst bind next dev"
+  }
+}

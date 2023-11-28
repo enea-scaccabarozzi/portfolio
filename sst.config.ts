@@ -10,13 +10,18 @@ export default {
     };
   },
   stacks(app) {
-    app.stack(function Site({ stack }) {
-      const site = new NextjsSite(stack, 'site', {
+    app.stack(function Root({ stack }) {
+      const web = new NextjsSite(stack, 'web', {
         path: './apps/web',
       });
 
+      const docs = new NextjsSite(stack, 'docs', {
+        path: './apps/docs',
+      });
+
       stack.addOutputs({
-        SiteUrl: site.url,
+        WebUrl: web.url,
+        DocsUrl: docs.url,
       });
     });
   },
