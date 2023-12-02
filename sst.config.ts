@@ -6,7 +6,7 @@ export default {
   config(_input) {
     return {
       name: 'Portfolio',
-      region: 'eu-west-1',
+      region: 'eu-west-2',
       profile: 'personal',
     };
   },

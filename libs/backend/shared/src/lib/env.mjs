@@ -1,14 +1,16 @@
 import { z } from 'zod';
+import { Config } from 'sst/node/config';
 
 /**
  * Specify your server-side environment variables schema here. This way you can ensure the app isn't
  * built with invalid env vars.
  */
 const server = z.object({
-  DATABASE_URL: z.string().url(),
   NODE_ENV: z
     .enum(['development', 'test', 'production'])
     .default('development'),
+  CURRENT_STAGE: z.string().default('dev'),
+  DATABASE_URL: z.string().url(),
   NEXTAUTH_SECRET:
     process.env.NODE_ENV === 'production' ? z.string() : z.string().optional(),
   NEXTAUTH_URL: z.preprocess(
@@ -18,7 +20,6 @@ const server = z.object({
     // VERCEL_URL doesn't include `https` so it cant be validated as a URL
     process.env.VERCEL ? z.string() : z.string().url()
   ),
-  SST_STAGE: z.string().default('dev'),
 });
 
 /**
@@ -28,7 +29,6 @@ const server = z.object({
 const client = z.object(
   /** @satisfies {Record<`NEXT_PUBLIC_${string}`, import('zod').ZodType>} */ ({
     NODE_ENV: z.enum(['development', 'test', 'production']),
-    NEXT_PUBLIC_DEBUG: z.boolean().default(false),
   })
 );
 
@@ -39,12 +39,11 @@ const client = z.object(
  * @type {Record<keyof z.infer<typeof server> | keyof z.infer<typeof client>, string | undefined>}
  */
 const processEnv = {
-  DATABASE_URL: process.env.DATABASE_URL,
   NODE_ENV: process.env.NODE_ENV,
-  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-  SST_STAGE: process.env.SST_STAGE,
-  NEXT_PUBLIC_DEBUG: process.env.DEBUG,
+  CURRENT_STAGE: process.env.SST_STAGE,
+  DATABASE_URL: Config.DATABASE_URL,
+  NEXTAUTH_SECRET: Config.NEXTAUTH_SECRET,
+  NEXTAUTH_URL: Config.NEXTAUTH_URL,
 };
 
 // Don't touch the part below
