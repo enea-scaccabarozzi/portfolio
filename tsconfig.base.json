@@ -24,7 +24,9 @@
       "@portfolio/backend-features-database": [
         "libs/backend/features/database/src/index.ts"
       ],
-      "@portfolio/backend-shared": ["libs/backend/shared/src/index.ts"]
+      "@portfolio/backend-shared": ["libs/backend/shared/src/index.ts"],
+      "@portfolio/docs-types": ["libs/docs/types/src/index.ts"],
+      "@portfolio/docs-ui": ["libs/docs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"],

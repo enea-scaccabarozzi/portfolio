@@ -1,9 +1,6 @@
 //@ts-check
 
-import { composePlugins, withNx } from '@nx/next';
 import nextra from 'nextra';
-
-import '../../libs/backend/shared/src/lib/env.mjs';
 
 const withNextra = nextra({
   theme: 'nextra-theme-docs',
@@ -14,22 +11,25 @@ const withNextra = nextra({
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
-  nx: {
-    // Set this to true if you would like to use SVGR
-    // See: https://github.com/gregberge/svgr
-    svgr: false,
-  },
+  reactStrictMode: true,
   experimental: {
-    serverComponentsExternalPackages: [
-      '@zenstackhq/runtime',
-      '@zenstackhq/server',
-    ],
+    legacyBrowsers: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  webpack: (config, { webpack }) => {
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        __SENTRY_DEBUG__: false,
+        __SENTRY_TRACING__: false,
+      })
+    );
+
+    return config;
   },
 };
 
-const plugins = [
-  // Add more Next.js plugins to this list if needed.
-  withNx,
-];
+const plugins = [];
 
-export default withNextra(composePlugins(...plugins)(nextConfig));
+export default withNextra(nextConfig);
