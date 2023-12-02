@@ -1,4 +1,4 @@
-import { Github } from './components';
+import { Github } from './libs/components';
 
 /**
  * @type {import('nextra-theme-docs').DocsThemeConfig}

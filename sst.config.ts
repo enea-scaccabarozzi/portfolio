@@ -1,5 +1,6 @@
 import { SSTConfig } from 'sst';
-import { NextjsSite } from 'sst/constructs';
+
+import { RootStack } from './apps/deployer';
 
 export default {
   config(_input) {
@@ -10,19 +11,6 @@ export default {
     };
   },
   stacks(app) {
-    app.stack(function Root({ stack }) {
-      const web = new NextjsSite(stack, 'web', {
-        path: './apps/web',
-      });
-
-      const docs = new NextjsSite(stack, 'docs', {
-        path: './apps/docs',
-      });
-
-      stack.addOutputs({
-        WebUrl: web.url,
-        DocsUrl: docs.url,
-      });
-    });
+    app.stack(RootStack);
   },
 } satisfies SSTConfig;

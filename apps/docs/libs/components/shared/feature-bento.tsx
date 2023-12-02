@@ -1,8 +1,7 @@
-import { IFeature } from '@portfolio/docs-types';
-
 import { FadeIn } from './fade-in';
 import { SectionHeader, SectionSubtext } from './heading';
 import { FeatureBox } from './feature-box';
+import { IFeature } from '../../types/feature';
 
 export function FeaturesBento({
   header,

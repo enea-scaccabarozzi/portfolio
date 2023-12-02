@@ -98,7 +98,7 @@ export const LetterComponent = () => {
       <FadeIn className="relative flex justify-center w-full mt-16" noVertical>
         <div className="max-w-[180px] w-full">
           <CTAButton>
-            <Link className="block py-3 font-sans" href="/repo/docs">
+            <Link className="block py-3 font-sans" href="/docs">
               Start Building
             </Link>
           </CTAButton>
