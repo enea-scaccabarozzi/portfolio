@@ -1,5 +1,6 @@
 /* eslint-disable */
 export default {
+  roots: ['../../libs/backend/', '.'],
   displayName: 'web',
   preset: '../../jest.preset.js',
   transform: {

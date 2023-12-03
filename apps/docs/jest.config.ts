@@ -1,5 +1,6 @@
 /* eslint-disable */
 export default {
+  roots: ['.'],
   displayName: 'docs',
   preset: '../../jest.preset.js',
   transform: {
