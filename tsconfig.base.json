@@ -27,12 +27,16 @@
       "@portfolio/backend-shared": ["libs/backend/shared/src/index.ts"],
       "@portfolio/docs-types": ["libs/docs/types/src/index.ts"],
       "@portfolio/docs-ui": ["libs/docs/ui/src/index.ts"],
+      "@portfolio/frontend-features-about": [
+        "libs/frontend/features/about/src/index.ts"
+      ],
       "@portfolio/frontend-features-core": [
         "libs/frontend/features/core/src/index.ts"
       ],
       "@portfolio/frontend-features-landing": [
         "libs/frontend/features/landing/src/index.ts"
       ],
+      "@portfolio/frontend-ui-about": ["libs/frontend/ui/about/src/index.ts"],
       "@portfolio/frontend-ui-landing": [
         "libs/frontend/ui/landing/src/index.ts"
       ],

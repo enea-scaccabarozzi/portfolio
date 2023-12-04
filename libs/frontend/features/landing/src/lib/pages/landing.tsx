@@ -1,17 +1,26 @@
-'use client';
-
 import {
-  NavigationProvider,
-  CursorProvider,
-} from '@portfolio/frontend-features-core';
-import { LandigPageComponent } from '@portfolio/frontend-ui-landing';
+  AboutComponent,
+  HeroComponent,
+  LandingBackground,
+  ProjectsComponent,
+} from '@portfolio/frontend-ui-landing';
+import {
+  FooterComponent,
+  NavbarComponent,
+} from '@portfolio/frontend-ui-shared';
 
 export const LandingPage = () => {
   return (
-    <CursorProvider>
-      <NavigationProvider>
-        <LandigPageComponent />
-      </NavigationProvider>
-    </CursorProvider>
+    <main>
+      <NavbarComponent />
+      <LandingBackground>
+        <>
+          <HeroComponent />
+          <AboutComponent />
+          <ProjectsComponent />
+        </>
+      </LandingBackground>
+      <FooterComponent />
+    </main>
   );
 };

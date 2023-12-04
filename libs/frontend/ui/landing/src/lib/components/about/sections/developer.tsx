@@ -1,3 +1,5 @@
+'use client';
+
 import { motion, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import cn from 'classnames';

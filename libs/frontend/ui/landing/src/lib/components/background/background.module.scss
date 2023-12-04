@@ -91,3 +91,9 @@
     border-radius: 26% 74% 61% 39% / 54% 67% 33% 46%;
   }
 }
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,4 +1,9 @@
+'use client';
+
 import { Inter, Roboto_Mono } from 'next/font/google';
+
+import { RootProvider } from '@portfolio/frontend-features-core';
+
 import './global.css';
 
 const inter = Inter({
@@ -20,7 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <RootProvider>{children}</RootProvider>
+      </body>
     </html>
   );
 }

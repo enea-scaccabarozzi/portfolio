@@ -4,6 +4,7 @@ export {
 } from './lib/contexts/cursor-context';
 export { NavigationProvider } from './lib/contexts/navigation-context';
 export { ScrollProvider } from './lib/contexts/scroll-context';
+export { RootProvider } from './lib/contexts';
 
 export { useCursor } from './lib/hooks/use-cursor';
 export { useMousePosition } from './lib/hooks/use-mouse-position';

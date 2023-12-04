@@ -1,9 +1,12 @@
+'use client';
+
 import { motion, useTransform } from 'framer-motion';
 
 import { ScrollProvider, useScroll } from '@portfolio/frontend-features-core';
 
 import styles from './hero.module.scss';
 
+// Should recive progress as prop
 const Content = () => {
   const progress = useScroll();
 
@@ -28,6 +31,7 @@ const Content = () => {
   );
 };
 
+// Move to wrapper componenent
 export const HeroComponent = () => {
   return (
     <ScrollProvider debug={false} options={{ start: 'top top', pin: false }}>
