@@ -57,7 +57,7 @@ jobs:
         with:
           node-version: 18.x
       - name: Run Lint for Affected Projects
-        run: pnpm affected:lint
+        run: pnpm nx affected:lint
 
   test:
     needs: install-deps
@@ -77,7 +77,7 @@ jobs:
         with:
           node-version: 18.x
       - name: Run Tests for Affected Projects
-        run: pnpm affected:test
+        run: pnpm nx affected:test
 
   build:
     needs: install-deps
@@ -97,7 +97,7 @@ jobs:
         with:
           node-version: 18.x
       - name: Build Affected Projects
-        run: pnpm affected:build
+        run: pnpm nx affected:build
 
   deploy:
     needs: [lint, test, build]
