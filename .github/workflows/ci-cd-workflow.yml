@@ -44,6 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - name: Download pnpm store
         uses: actions/download-artifact@v2
         with:
@@ -61,6 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - name: Download pnpm store
         uses: actions/download-artifact@v2
         with:
@@ -78,6 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - name: Download pnpm store
         uses: actions/download-artifact@v2
         with:
@@ -96,6 +99,7 @@ jobs:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - name: Download pnpm store
         uses: actions/download-artifact@v2
         with:
