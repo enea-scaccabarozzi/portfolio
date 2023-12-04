@@ -8,94 +8,78 @@ on:
   pull_request:
 
 jobs:
-  install-deps:
+  lint:
     runs-on: ubuntu-latest
-    outputs:
-      cache-key: ${{ steps.cache-keys.outputs.cache-key }}
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8.10.0
-      - name: Cache key
-        id: cache-keys
-        run: echo "::set-output name=cache-key::$(echo ${{ hashFiles('**/pnpm-lock.yaml') }})"
-      - name: Cache pnpm modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ steps.cache-keys.outputs.cache-key }}
-      - name: Use Node.js 18.x
+
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
           cache-dependency-path: '**/pnpm-lock.yaml'
+
       - name: Install Dependencies
         run: pnpm install
-      - name: Upload pnpm store for other jobs
-        uses: actions/upload-artifact@v2
-        with:
-          name: pnpm-store
-          path: ~/.pnpm-store
 
-  lint:
-    needs: install-deps
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8.10.0
-      - name: Download pnpm store
-        uses: actions/download-artifact@v2
-        with:
-          name: pnpm-store
-          path: ~/.pnpm-store
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18.x
       - name: Run Lint for Affected Projects
         run: pnpm nx affected:lint
 
   test:
-    needs: install-deps
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8.10.0
-      - name: Download pnpm store
-        uses: actions/download-artifact@v2
-        with:
-          name: pnpm-store
-          path: ~/.pnpm-store
-      - name: Use Node.js 18.x
+
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+
+      - name: Install Dependencies
+        run: pnpm install
+
       - name: Run Tests for Affected Projects
         run: pnpm nx affected:test
 
   build:
-    needs: install-deps
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8.10.0
-      - name: Download pnpm store
-        uses: actions/download-artifact@v2
-        with:
-          name: pnpm-store
-          path: ~/.pnpm-store
-      - name: Use Node.js 18.x
+
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+
+      - name: Install Dependencies
+        run: pnpm install
+
       - name: Build Affected Projects
         run: pnpm nx affected:build
 
@@ -105,21 +89,25 @@ jobs:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8.10.0
-      - name: Download pnpm store
-        uses: actions/download-artifact@v2
-        with:
-          name: pnpm-store
-          path: ~/.pnpm-store
+
       - name: Use Node.js 18.x
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
+          cache: 'pnpm'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+
+      - name: Install Dependencies
+        run: pnpm install
+
       - name: Deploy to Staging
         if: github.ref == 'refs/heads/develop'
         run: pnpm deploy:staging
+
       - name: Deploy to Production
         if: github.ref == 'refs/heads/main'
         run: pnpm deploy:prod
