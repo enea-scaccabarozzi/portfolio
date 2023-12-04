@@ -1,1 +1,1 @@
-export { IProject } from './lib/interfaces/project';
+export type { IProject } from './lib/interfaces/project';
