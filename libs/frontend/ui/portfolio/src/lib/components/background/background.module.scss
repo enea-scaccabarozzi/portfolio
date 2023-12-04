@@ -1,0 +1,26 @@
+.background {
+  width: 100vw;
+  overflow: hidden;
+  background: theme('colors.light.DEFAULT');
+  background-image: linear-gradient(
+    to bottom,
+    theme('colors.light.DEFAULT') 0%,
+    theme('colors.light.400') 100%
+  );
+  position: relative;
+  z-index: 10;
+
+  .backgroundBlob {
+    position: fixed;
+    height: 60vh;
+    margin: -30vh;
+    aspect-ratio: 1/1;
+    animation: blob 10s ease-in-out infinite alternate;
+    filter: blur(20vh);
+    background: radial-gradient(
+      circle,
+      theme('colors.accent.500') 2%,
+      transparent 100%
+    );
+  }
+}

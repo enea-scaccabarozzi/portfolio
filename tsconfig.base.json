@@ -36,9 +36,16 @@
       "@portfolio/frontend-features-landing": [
         "libs/frontend/features/landing/src/index.ts"
       ],
+      "@portfolio/frontend-features-portfolio": [
+        "libs/frontend/features/portfolio/src/index.ts"
+      ],
+      "@portfolio/frontend-types": ["libs/frontend/types/src/index.ts"],
       "@portfolio/frontend-ui-about": ["libs/frontend/ui/about/src/index.ts"],
       "@portfolio/frontend-ui-landing": [
         "libs/frontend/ui/landing/src/index.ts"
+      ],
+      "@portfolio/frontend-ui-portfolio": [
+        "libs/frontend/ui/portfolio/src/index.ts"
       ],
       "@portfolio/frontend-ui-shared": ["libs/frontend/ui/shared/src/index.ts"],
       "@portfolio/utils": ["libs/utils/src/index.ts"]

@@ -32,9 +32,6 @@ jobs:
       - name: Set appropriate SHAs for base and head
         uses: nrwl/nx-set-shas@v4
         id: setSHAs
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
       - name: Install Dependencies
         run: pnpm install
@@ -66,9 +63,6 @@ jobs:
       - name: Set appropriate SHAs for base and head
         uses: nrwl/nx-set-shas@v4
         id: setSHAs
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
       - name: Install Dependencies
         run: pnpm install
@@ -100,9 +94,6 @@ jobs:
       - name: Set appropriate SHAs for base and head
         uses: nrwl/nx-set-shas@v4
         id: setSHAs
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
       - name: Install Dependencies
         run: pnpm install
@@ -133,9 +124,6 @@ jobs:
       - name: Set appropriate SHAs for base and head
         uses: nrwl/nx-set-shas@v4
         id: setSHAs
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
       - name: Install Dependencies
         run: pnpm install

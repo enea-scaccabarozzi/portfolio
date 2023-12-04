@@ -50,6 +50,9 @@ dependencies:
   gsap:
     specifier: ^3.12.3
     version: 3.12.3
+  moment:
+    specifier: ^2.29.4
+    version: 2.29.4
   next:
     specifier: ^14.0.0
     version: 14.0.3(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0)(sass@1.62.1)
@@ -14523,6 +14526,10 @@ packages:
     dependencies:
       obliterator: 2.0.4
     dev: true
+
+  /moment@2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
+    dev: false
 
   /mqtt-packet@6.10.0:
     resolution: {integrity: sha512-ja8+mFKIHdB1Tpl6vac+sktqy3gA8t9Mduom1BA75cI+R9AHnZOiaBQwpGiWnaVJLDGRdNhQmFaAqd7tkKSMGA==}

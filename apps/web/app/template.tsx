@@ -1,9 +1,17 @@
 'use client';
 
+import { useCursor } from '@portfolio/frontend-features-core';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Template({ children }: { children: React.ReactNode }) {
+  const { setIsSpecial } = useCursor();
+
+  useEffect(() => {
+    setIsSpecial(false);
+  }, [setIsSpecial]);
+
   const isGoingToHome = usePathname() === '/';
 
   const layersBG = [
