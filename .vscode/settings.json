@@ -1,0 +1,13 @@
+{
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "*.scss": "tailwindcss"
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.experimental.configFile": {
+    "apps/web/tailwind.config.js": ["apps/web/**", "libs/frontend/**"]
+  }
+}
