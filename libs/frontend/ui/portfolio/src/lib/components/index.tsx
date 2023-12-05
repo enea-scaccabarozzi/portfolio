@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 import { FooterComponent } from '@portfolio/frontend-ui-shared';
 import { IProject } from '@portfolio/frontend-types';
@@ -15,8 +15,6 @@ interface IProps {
 }
 
 export const PortfolioComponent = ({ projects }: IProps) => {
-  const router = useRouter();
-
   return (
     <>
       <main className={styles.portfolioPage}>
@@ -24,9 +22,9 @@ export const PortfolioComponent = ({ projects }: IProps) => {
           <>
             <div className={styles.overlay}>
               <div className={styles.bottomOverlayBorder} />
-              <div onClick={() => router.back()} className={styles.homeLink}>
+              <Link href="/" className={styles.homeLink}>
                 « Home »
-              </div>
+              </Link>
               <div className={styles.topOverlayBorder} />
             </div>
             {projects.map((project, ind) => (

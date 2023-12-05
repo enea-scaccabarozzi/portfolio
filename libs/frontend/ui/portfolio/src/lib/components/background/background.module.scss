@@ -1,12 +1,7 @@
 .background {
   width: 100vw;
   overflow: hidden;
-  background: theme('colors.light.DEFAULT');
-  background-image: linear-gradient(
-    to bottom,
-    theme('colors.light.DEFAULT') 0%,
-    theme('colors.light.400') 100%
-  );
+
   position: relative;
   z-index: 10;
 

@@ -16,7 +16,7 @@ const Content = () => {
   const progress = useScroll();
 
   return (
-    <div className={cn(styles.portfolio, styles.wrapper)}>
+    <div className={cn(styles.portfolio, styles.wrapper)} id="portfolio">
       <Link href={'/portfolio'}>
         <motion.div
           className={styles.blob}

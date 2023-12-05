@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 
@@ -24,7 +24,6 @@ export const LayoutComponent = ({
   imgUrl,
   rowReverse,
 }: IProps) => {
-  const router = useRouter();
   const mousePosition = useMousePosition();
   const window = useWindowDimensions();
 
@@ -63,9 +62,9 @@ export const LayoutComponent = ({
         </div>
         <div className={styles.rightbar}>
           <div className={styles.linkWrapper}>
-            <div className={styles.layoutLink} onClick={() => router.back()}>
+            <Link href="/" className={styles.layoutLink}>
               « Home »
-            </div>
+            </Link>
           </div>
         </div>
         <div className={styles.layoutContentWrapper}>

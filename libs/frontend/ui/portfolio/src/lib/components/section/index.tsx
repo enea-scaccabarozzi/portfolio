@@ -1,18 +1,17 @@
 'use client';
 
-import {
-  type MotionValue,
-  motion,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
+import { motion, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import moment from 'moment';
 import cn from 'classnames';
 
 import { IProject } from '@portfolio/frontend-types';
-import { ScrollProvider, useScroll } from '@portfolio/frontend-features-core';
+import {
+  ScrollProvider,
+  useScroll,
+  useSpring,
+} from '@portfolio/frontend-features-core';
 
 import styles from './section.module.scss';
 
@@ -24,20 +23,13 @@ interface IProps {
 const Content = ({ project, isReverse }: IProps) => {
   const progress = useScroll();
 
-  const useSpringAnimation = (motion: MotionValue<number>) =>
-    useSpring(motion, {
-      stiffness: 50,
-      damping: 50,
-      restDelta: 0.0001,
-    }) as MotionValue<number>;
-
   return (
     <div className={cn(styles.section, isReverse ? styles.reversed : '')}>
       <div className={styles.content}>
         <motion.div
           style={{
             x: useTransform(
-              useSpringAnimation(progress),
+              useSpring(progress),
               [0, 0.5, 1],
               [isReverse ? 200 : -200, 0, isReverse ? -200 : 200]
             ),
@@ -62,7 +54,7 @@ const Content = ({ project, isReverse }: IProps) => {
               className={styles.date}
               style={{
                 x: useTransform(
-                  useSpringAnimation(progress),
+                  useSpring(progress),
                   [0, 0.5, 1],
                   [isReverse ? -250 : 250, 0, isReverse ? 250 : -250]
                 ),
@@ -75,7 +67,7 @@ const Content = ({ project, isReverse }: IProps) => {
               className={styles.header}
               style={{
                 x: useTransform(
-                  useSpringAnimation(progress),
+                  useSpring(progress),
                   [0, 0.5, 1],
                   [isReverse ? -300 : 300, 0, isReverse ? 300 : -300]
                 ),
@@ -88,7 +80,7 @@ const Content = ({ project, isReverse }: IProps) => {
               className={styles.discoverMore}
               style={{
                 x: useTransform(
-                  useSpringAnimation(progress),
+                  useSpring(progress),
                   [0, 0.5, 1],
                   [isReverse ? -200 : 200, 0, isReverse ? 200 : -200]
                 ),
