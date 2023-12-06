@@ -2,12 +2,14 @@
 
 import { composePlugins, withNx } from '@nx/next';
 import bundleAnalyzer from '@next/bundle-analyzer';
+import nextIntl from 'next-intl/plugin';
 
 import '../../libs/backend/shared/src/lib/env.mjs';
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.WEB_BUNDLE_ANALYZE === 'true',
 });
+const withNextIntl = nextIntl('./i18n.ts');
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -31,4 +33,6 @@ const plugins = [
   withNx,
 ];
 
-export default withBundleAnalyzer(composePlugins(...plugins)(nextConfig));
+export default withBundleAnalyzer(
+  withNextIntl(composePlugins(...plugins)(nextConfig))
+);

@@ -1,8 +1,9 @@
 'use client';
 
 import { motion, useTransform } from 'framer-motion';
-import Link from 'next/link';
 import cn from 'classnames';
+
+import { Link } from '@portfolio/frontend-features-core';
 
 import styles from '../about.module.scss';
 
@@ -13,7 +14,11 @@ import {
   useScroll,
 } from '@portfolio/frontend-features-core';
 
-const Content = () => {
+interface IProps {
+  title: string;
+}
+
+const Content = ({ title }: IProps) => {
   const progress = useScroll();
 
   return (
@@ -36,7 +41,7 @@ const Content = () => {
                 opacity: useTransform(progress, [0, 0.8, 1], [0, 1, 1]),
               }}
             >
-              <h3>Entusiasta</h3>
+              <h3>{title}</h3>
             </motion.div>
           </div>
         </Link>
@@ -45,7 +50,7 @@ const Content = () => {
   );
 };
 
-export const EnthusiasticSection = () => {
+export const EnthusiasticSection = ({ title }: IProps) => {
   const { setActiveSection } = useNavigation();
 
   return (
@@ -59,7 +64,7 @@ export const EnthusiasticSection = () => {
         onUpdate: () => setActiveSection(0),
       }}
     >
-      <Content />
+      <Content title={title} />
     </ScrollProvider>
   );
 };

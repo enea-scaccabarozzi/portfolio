@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion, useTransform } from 'framer-motion';
-import moment from 'moment';
+import { useFormatter, useTranslations } from 'next-intl';
 
 import { IProject } from '@portfolio/frontend-types';
 
@@ -25,6 +25,8 @@ interface INestedProps {
 
 export const Content = ({ thumbnail, title, period }: INestedProps) => {
   const progress = useScroll();
+  const format = useFormatter();
+  const t = useTranslations('Portfolio');
 
   return (
     <div className={styles.hero}>
@@ -56,8 +58,21 @@ export const Content = ({ thumbnail, title, period }: INestedProps) => {
           ),
         }}
       >
-        <span>{moment(period[0]).format('MMMM yyyy')}</span> --{' '}
-        <span>{period[1] ? moment(period[1]).format('MMMM yyyy') : 'now'}</span>
+        <span>
+          {format.dateTime(new Date(period[0]), {
+            year: 'numeric',
+            month: 'long',
+          })}
+        </span>{' '}
+        --{' '}
+        <span>
+          {period[1]
+            ? format.dateTime(new Date(period[1]), {
+                year: 'numeric',
+                month: 'long',
+              })
+            : t('now')}
+        </span>
       </motion.div>
     </div>
   );

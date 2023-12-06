@@ -1,0 +1,21 @@
+{
+  "Landing": {
+    "student": "Student",
+    "developer": "Developer",
+    "enthusiastic": "Enthusiastic"
+  },
+  "Footer": {
+    "contacts": "Let's keep in touch!",
+    "love": "Designed & developed with 💖 by Enea Scaccabarozzi",
+    "fork": "Fork and explore this project from"
+  },
+  "Portfolio": {
+    "discoverMore": "Discover More",
+    "close": "Close",
+    "now": "Now",
+    "role": "Role",
+    "commissioner": "Commissioner",
+    "categories": "Categories",
+    "stack": "Stack"
+  }
+}

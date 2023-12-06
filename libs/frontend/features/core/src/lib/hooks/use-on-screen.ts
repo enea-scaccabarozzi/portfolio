@@ -1,3 +1,5 @@
+'use client';
+
 import { type RefObject, useEffect, useMemo, useState } from 'react';
 
 export const useOnScreen = (ref: RefObject<HTMLElement>) => {
@@ -8,7 +10,7 @@ export const useOnScreen = (ref: RefObject<HTMLElement>) => {
       new IntersectionObserver(([entry]) => {
         if (entry) setIntersecting(entry.isIntersecting);
       }),
-    [],
+    []
   );
 
   useEffect(() => {

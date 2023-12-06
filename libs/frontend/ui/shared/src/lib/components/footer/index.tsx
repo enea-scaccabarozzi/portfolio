@@ -5,23 +5,20 @@ import {
   IconBrandGithub,
 } from '@tabler/icons-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import styles from './footer.module.scss';
 
 export const FooterComponent = () => {
+  const t = useTranslations('Footer');
+
   return (
     <footer className={styles.footer}>
       <div className={styles.content}>
         <div className={styles.column}>
+          <p className={styles.text}>{t('love')}</p>
           <p className={styles.text}>
-            Progettato & realizzato con il{' '}
-            <span role="img" aria-label="heart emoji">
-              💖
-            </span>{' '}
-            da Enea Scaccabarozzi
-          </p>
-          <p className={styles.text}>
-            Scopri il codice e clona questo progetto da{' '}
+            {t('fork')}{' '}
             <Link
               href="https://github.com/enea-scaccabarozzi/Portfolio"
               target="new"
@@ -36,7 +33,7 @@ export const FooterComponent = () => {
         </div>
         <div className={styles.columnDivider} />
         <div className={styles.column}>
-          <p className={styles.text}>Restiamo in contatto!</p>
+          <p className={styles.text}>{t('contacts')}</p>
           <div className={styles.social}>
             <Link href="mailto:me@eneascaccabarozzi.xyz">
               <div className={styles.icon}>

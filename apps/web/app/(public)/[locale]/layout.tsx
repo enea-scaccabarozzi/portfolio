@@ -1,8 +1,9 @@
 'use client';
 
+import { notFound } from 'next/navigation';
 import { Inter, Roboto_Mono } from 'next/font/google';
 
-import { RootProvider } from '@portfolio/frontend-features-core';
+import { RootProvider, locales } from '@portfolio/frontend-features-core';
 
 import './global.css';
 
@@ -18,13 +19,18 @@ const roboto_mono = Roboto_Mono({
   variable: '--font-roboto-mono',
 });
 
-export default function RootLayout({
-  children,
-}: {
+interface IProps {
   children: React.ReactNode;
-}) {
+  params: {
+    locale: string;
+  };
+}
+
+export default function RootLayout({ children, params: { locale } }: IProps) {
+  if (!locales.some((l) => l === locale)) notFound();
+
   return (
-    <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${roboto_mono.variable}`}>
       <body>
         <RootProvider>{children}</RootProvider>
       </body>

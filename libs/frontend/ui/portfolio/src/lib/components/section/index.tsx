@@ -1,9 +1,8 @@
 'use client';
 
 import { motion, useTransform } from 'framer-motion';
-import Link from 'next/link';
 import Image from 'next/image';
-import moment from 'moment';
+import { useFormatter, useTranslations } from 'next-intl';
 import cn from 'classnames';
 
 import { IProject } from '@portfolio/frontend-types';
@@ -12,6 +11,7 @@ import {
   useScroll,
   useSpring,
 } from '@portfolio/frontend-features-core';
+import { Link } from '@portfolio/frontend-features-core';
 
 import styles from './section.module.scss';
 
@@ -22,6 +22,8 @@ interface IProps {
 
 const Content = ({ project, isReverse }: IProps) => {
   const progress = useScroll();
+  const format = useFormatter();
+  const t = useTranslations('Portfolio');
 
   return (
     <div className={cn(styles.section, isReverse ? styles.reversed : '')}>
@@ -61,7 +63,10 @@ const Content = ({ project, isReverse }: IProps) => {
                 opacity: useTransform(progress, [0, 0.5, 1], [0, 1, 0]),
               }}
             >
-              {moment(project.period[0]).format('MMMM, YYYY')}
+              {format.dateTime(new Date(project.period[0]), {
+                year: 'numeric',
+                month: 'short',
+              })}
             </motion.div>
             <motion.div
               className={styles.header}
@@ -87,7 +92,7 @@ const Content = ({ project, isReverse }: IProps) => {
                 opacity: useTransform(progress, [0, 0.5, 1], [0, 1, 0]),
               }}
             >
-              Scopri di più
+              {t('discoverMore')}
             </motion.span>
           </div>
         </Link>

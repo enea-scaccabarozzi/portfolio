@@ -1,40 +1,39 @@
 'use client';
 
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import { IProject } from '@portfolio/frontend-types';
-import { FooterComponent } from '@portfolio/frontend-ui-shared';
+import { Link } from '@portfolio/frontend-features-core';
 
 import { PortfolioBackground } from '../background';
 import { HeroComponent } from './hero';
 import { InfoComponent } from './info';
 import { ImagesComponent } from './images';
+import { DescriptionComponent } from './description';
 
 import styles from './project.module.scss';
-import { DescriptionComponent } from './description';
 
 interface IProps {
   project: IProject;
 }
 
 export const ProjectComponent = ({ project }: IProps) => {
+  const t = useTranslations('Portfolio');
+
   return (
-    <>
-      <PortfolioBackground isDark>
-        <main className={styles.projectPage}>
-          <div className={styles.closeLink}>
-            <Link href="/portfolio">Close</Link>
-          </div>
-          <HeroComponent project={project} />
+    <PortfolioBackground isDark>
+      <main className={styles.projectPage}>
+        <div className={styles.closeLink}>
+          <Link href="/portfolio">{t('close')}</Link>
+        </div>
+        <HeroComponent project={project} />
 
-          <InfoComponent project={project} />
+        <InfoComponent project={project} />
 
-          <DescriptionComponent description={project.description} />
+        <DescriptionComponent description={project.description} />
 
-          <ImagesComponent project={project} />
-        </main>
-      </PortfolioBackground>
-      <FooterComponent />
-    </>
+        <ImagesComponent project={project} />
+      </main>
+    </PortfolioBackground>
   );
 };

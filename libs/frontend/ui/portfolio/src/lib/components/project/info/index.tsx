@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import {
   IconBrandGit,
   IconBrandGooglePlay,
   IconWorld,
 } from '@tabler/icons-react';
 import { motion, useTransform } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 import { IProject } from '@portfolio/frontend-types';
 import {
@@ -14,6 +14,7 @@ import {
   useScroll,
   useSpring,
 } from '@portfolio/frontend-features-core';
+import { Link } from '@portfolio/frontend-features-core';
 
 import styles from './info.module.scss';
 
@@ -41,6 +42,7 @@ const Content = ({
   stack,
 }: INestedProps) => {
   const progress = useScroll();
+  const t = useTranslations('Portfolio');
 
   return (
     <div className={styles.info}>
@@ -53,7 +55,7 @@ const Content = ({
               opacity: useTransform(useSpring(progress), [0, 1], [0, 1]),
             }}
           >
-            Ruolo
+            {t('role')}
           </motion.span>
           <motion.span
             className={styles.value}
@@ -73,7 +75,7 @@ const Content = ({
               opacity: useTransform(useSpring(progress), [0, 1], [0, 1]),
             }}
           >
-            Commissore
+            {t('commissioner')}
           </motion.span>
           <motion.span
             className={styles.value}
@@ -140,7 +142,7 @@ const Content = ({
               opacity: useTransform(useSpring(progress), [0, 1], [0, 1]),
             }}
           >
-            Categorie
+            {t('categories')}
           </motion.span>
           <motion.div
             className={styles.tags}
@@ -164,7 +166,7 @@ const Content = ({
               opacity: useTransform(useSpring(progress), [0, 1], [0, 1]),
             }}
           >
-            Stack
+            {t('stack')}
           </motion.span>
           <motion.div
             className={styles.tags}
