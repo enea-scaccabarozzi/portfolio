@@ -11,7 +11,7 @@ import {
   useScroll,
   useSpring,
 } from '@portfolio/frontend-features-core';
-import { Link } from '@portfolio/frontend-features-core';
+import { Link } from '@portfolio/frontend-utils';
 
 import styles from './section.module.scss';
 

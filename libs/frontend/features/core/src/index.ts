@@ -14,12 +14,3 @@ export { useScroll } from './lib/hooks/use-scroll';
 export { useScrollPosition } from './lib/hooks/use-scroll-position';
 export { useWindowDimensions } from './lib/hooks/use-window-size';
 export { useSpring } from './lib/hooks/use-spring';
-
-export {
-  Link,
-  usePathname,
-  useRouter,
-  redirect,
-  localePrefix,
-  locales,
-} from './lib/navigation';

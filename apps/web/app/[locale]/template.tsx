@@ -1,9 +1,11 @@
 'use client';
 
-import { useCursor } from '@portfolio/frontend-features-core';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+
+import { useCursor } from '@portfolio/frontend-features-core';
+import { RootProvider } from '@portfolio/frontend-features-core';
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const { setIsSpecial } = useCursor();
@@ -48,7 +50,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             {res}
           </motion.main>
         ),
-        children
+        <RootProvider>{children}</RootProvider>
       )}
     </div>
   );

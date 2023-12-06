@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 
-import { Link } from '@portfolio/frontend-features-core';
+import { Link } from '@portfolio/frontend-utils';
 
 import {
   useMousePosition,

@@ -1,9 +1,7 @@
-'use client';
-
 import { notFound } from 'next/navigation';
 import { Inter, Roboto_Mono } from 'next/font/google';
 
-import { RootProvider, locales } from '@portfolio/frontend-features-core';
+import { locales } from '@portfolio/frontend-utils';
 
 import './global.css';
 
@@ -31,9 +29,7 @@ export default function RootLayout({ children, params: { locale } }: IProps) {
 
   return (
     <html lang={locale} className={`${inter.variable} ${roboto_mono.variable}`}>
-      <body>
-        <RootProvider>{children}</RootProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

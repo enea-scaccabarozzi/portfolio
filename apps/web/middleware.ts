@@ -1,5 +1,5 @@
 import createMiddleware from 'next-intl/middleware';
-import { locales, localePrefix } from '@portfolio/frontend-features-core';
+import { locales, localePrefix } from '@portfolio/frontend-utils';
 
 export default createMiddleware({
   defaultLocale: 'en',

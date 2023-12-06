@@ -25,6 +25,8 @@
         "libs/backend/features/database/src/index.ts"
       ],
       "@portfolio/backend-shared": ["libs/backend/shared/src/index.ts"],
+      "@portfolio/bhfg": ["bhfg/src/index.ts"],
+      "@portfolio/bhfg/server": ["bhfg/src/server.ts"],
       "@portfolio/docs-types": ["libs/docs/types/src/index.ts"],
       "@portfolio/docs-ui": ["libs/docs/ui/src/index.ts"],
       "@portfolio/frontend-features-about": [
@@ -48,6 +50,9 @@
         "libs/frontend/ui/portfolio/src/index.ts"
       ],
       "@portfolio/frontend-ui-shared": ["libs/frontend/ui/shared/src/index.ts"],
+      "@portfolio/frontend-utils": ["libs/frontend/utils/src/index.ts"],
+      "@portfolio/test": ["test/src/index.ts"],
+      "@portfolio/test/server": ["test/src/server.ts"],
       "@portfolio/utils": ["libs/utils/src/index.ts"]
     }
   },
