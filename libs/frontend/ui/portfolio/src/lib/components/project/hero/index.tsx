@@ -49,6 +49,17 @@ export const Content = ({ thumbnail, title, period }: INestedProps) => {
         />
       </div>
       <motion.div
+        className={styles.scrollIndicator}
+        style={{
+          // x: useTransform(useSpring(progress), [0, 0.2, 1], [0, -1000, -1000]),
+          opacity: useTransform(useSpring(progress), [0, 0.1, 1], [1, 0, 0]),
+          scale: useTransform(useSpring(progress), [0, 0.1, 1], [1, 0, 0]),
+        }}
+      >
+        {t('scroll')}
+        <div className={styles.icon} />
+      </motion.div>
+      <motion.div
         className={styles.timeperiod}
         style={{
           x: useTransform(

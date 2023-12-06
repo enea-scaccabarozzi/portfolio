@@ -27,6 +27,14 @@ const Content = () => {
           </div>
         </motion.div>
       </div>
+
+      <motion.div
+        className={styles.scrollIndicator}
+        style={{
+          scale: useTransform(progress, [0, 0.4, 1], [1, 0, 0]),
+          opacity: useTransform(progress, [0, 0.4, 1], [1, 0, 0]),
+        }}
+      />
     </main>
   );
 };
