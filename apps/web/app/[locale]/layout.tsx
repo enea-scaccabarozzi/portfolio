@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { Inter, Roboto_Mono } from 'next/font/google';
 
 import { locales } from '@portfolio/frontend-utils';
@@ -25,7 +25,9 @@ interface IProps {
 }
 
 export default function RootLayout({ children, params: { locale } }: IProps) {
-  if (!locales.some((l) => l === locale)) notFound();
+  if (!locales.some((l) => l === locale)) {
+    redirect('/not/found');
+  }
 
   return (
     <html lang={locale} className={`${inter.variable} ${roboto_mono.variable}`}>

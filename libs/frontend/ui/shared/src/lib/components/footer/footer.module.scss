@@ -76,7 +76,7 @@
     }
     .columnDivider {
       background-color: theme('colors.light.DEFAULT');
-      width: 2px;
+      width: 3px;
       height: 60%;
       margin: 0 2vh;
     }
@@ -92,5 +92,44 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@media (max-width: theme('screens.lg')) {
+  .footer {
+    .content {
+      .column {
+        .text {
+          text-align: center;
+          font-size: 1.2vw;
+        }
+
+        .social {
+          margin-top: 2vh;
+          gap: 1vw;
+        }
+      }
+      .columnDivider {
+        width: 3px;
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.sm')) {
+  .footer {
+    height: 60vh;
+    .content {
+      flex-direction: column;
+      .column {
+        .text {
+          font-size: 3vw;
+        }
+      }
+      .columnDivider {
+        width: 80%;
+        height: 3px;
+      }
+    }
   }
 }
