@@ -1,3 +1,5 @@
+'use client';
+
 import { MotionValue, useSpring as defaultSpring } from 'framer-motion';
 
 export const useSpring = (motion: MotionValue<number>) =>

@@ -2,6 +2,10 @@
   width: 100vw;
   overflow: hidden;
 
+  &.dark {
+    background: theme('colors.dark.DEFAULT') !important;
+  }
+
   position: relative;
   z-index: 10;
 

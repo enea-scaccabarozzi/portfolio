@@ -5,13 +5,13 @@ import { motion, useTransform } from 'framer-motion';
 import { useFormatter, useTranslations } from 'next-intl';
 
 import { IProject } from '@portfolio/frontend-types';
-
-import styles from './hero.module.scss';
 import {
   ScrollProvider,
   useSpring,
   useScroll,
-} from '@portfolio/frontend-features-core';
+} from '@portfolio/frontend-utils';
+
+import styles from './hero.module.scss';
 
 interface IProps {
   project: IProject;

@@ -3,12 +3,11 @@
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 
-import { Link } from '@portfolio/frontend-utils';
-
+import { Link } from '@portfolio/frontend-utils/server';
 import {
   useMousePosition,
   useWindowDimensions,
-} from '@portfolio/frontend-features-core';
+} from '@portfolio/frontend-utils';
 
 import styles from './layout.module.scss';
 

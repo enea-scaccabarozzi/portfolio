@@ -2,7 +2,7 @@
 
 import { motion, useTransform } from 'framer-motion';
 
-import { ScrollProvider, useScroll } from '@portfolio/frontend-features-core';
+import { ScrollProvider, useScroll } from '@portfolio/frontend-utils';
 
 import styles from './hero.module.scss';
 

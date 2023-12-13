@@ -3,16 +3,15 @@
 import { motion, useTransform } from 'framer-motion';
 import cn from 'classnames';
 
-import { Link } from '@portfolio/frontend-utils';
-
-import styles from '../about.module.scss';
-
+import { Link } from '@portfolio/frontend-utils/server';
 import {
   ScrollProvider,
   TriggerSpecialCursor,
   useNavigation,
   useScroll,
-} from '@portfolio/frontend-features-core';
+} from '@portfolio/frontend-utils';
+
+import styles from '../about.module.scss';
 
 interface IProps {
   title: string;

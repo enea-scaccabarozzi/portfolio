@@ -1,5 +1,3 @@
-'use client';
-
 import { CursorProvider } from './cursor-context';
 import { NavigationProvider } from './navigation-context';
 

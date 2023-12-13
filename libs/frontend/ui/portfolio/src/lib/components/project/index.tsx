@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import { IProject } from '@portfolio/frontend-types';
-import { Link } from '@portfolio/frontend-utils';
+import { Link } from '@portfolio/frontend-utils/server';
 
 import { PortfolioBackground } from '../background';
 import { HeroComponent } from './hero';

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 
-import { useCursor, useMousePosition } from '@portfolio/frontend-features-core';
+import { useCursor, useMousePosition } from '@portfolio/frontend-utils';
 
 import styles from './background.module.scss';
 
@@ -20,8 +20,7 @@ export const PortfolioBackground = ({ children, isDark }: IProps) => {
     <div
       className={cn(
         styles.background,
-        'bg-gradient-to-b',
-        isDark ? 'from-dark to-dark' : 'from-light to-light-400'
+        isDark ? styles.dark : 'bg-gradient-to-b from-light to-light-400'
       )}
     >
       <motion.div

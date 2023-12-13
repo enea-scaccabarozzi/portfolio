@@ -13,8 +13,8 @@ import {
   ScrollProvider,
   useScroll,
   useSpring,
-} from '@portfolio/frontend-features-core';
-import { Link } from '@portfolio/frontend-utils';
+} from '@portfolio/frontend-utils';
+import { Link } from '@portfolio/frontend-utils/server';
 
 import styles from './info.module.scss';
 

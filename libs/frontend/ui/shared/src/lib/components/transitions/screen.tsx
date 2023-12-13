@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { useCursor } from '@portfolio/frontend-features-core';
+import { useCursor } from '@portfolio/frontend-utils';
 
 interface IProps {
   children: React.ReactNode;

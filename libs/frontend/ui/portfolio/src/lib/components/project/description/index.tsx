@@ -4,7 +4,7 @@ import {
   ScrollProvider,
   useSpring,
   useScroll,
-} from '@portfolio/frontend-features-core';
+} from '@portfolio/frontend-utils';
 
 import styles from './description.module.scss';
 

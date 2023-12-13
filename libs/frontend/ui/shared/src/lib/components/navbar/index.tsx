@@ -5,8 +5,8 @@ import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import cn from 'classnames';
 
-import { useNavigation } from '@portfolio/frontend-features-core';
-import { usePathname, useRouter } from '@portfolio/frontend-utils';
+import { useNavigation } from '@portfolio/frontend-utils';
+import { usePathname, useRouter } from '@portfolio/frontend-utils/server';
 
 import styles from './navbar.module.scss';
 

@@ -1,6 +1,6 @@
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 
-import { FooterComponent } from '@portfolio/frontend-ui-shared';
+import { FooterComponent } from '@portfolio/frontend-ui-shared/server';
 
 interface IProps {
   children: React.ReactNode;

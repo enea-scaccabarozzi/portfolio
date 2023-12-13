@@ -3,13 +3,13 @@
 import { motion, useTransform } from 'framer-motion';
 import cn from 'classnames';
 
-import { Link } from '@portfolio/frontend-utils';
+import { Link } from '@portfolio/frontend-utils/server';
 
 import {
   ScrollProvider,
   useNavigation,
   useScroll,
-} from '@portfolio/frontend-features-core';
+} from '@portfolio/frontend-utils';
 
 import styles from './projects.module.scss';
 

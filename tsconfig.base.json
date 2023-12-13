@@ -31,25 +31,44 @@
       "@portfolio/frontend-features-about": [
         "libs/frontend/features/about/src/index.ts"
       ],
-      "@portfolio/frontend-features-core": [
-        "libs/frontend/features/core/src/index.ts"
+      "@portfolio/frontend-features-about/server": [
+        "libs/frontend/features/about/src/server.ts"
       ],
       "@portfolio/frontend-features-landing": [
         "libs/frontend/features/landing/src/index.ts"
       ],
+      "@portfolio/frontend-features-landing/server": [
+        "libs/frontend/features/landing/src/server.ts"
+      ],
       "@portfolio/frontend-features-portfolio": [
         "libs/frontend/features/portfolio/src/index.ts"
       ],
+      "@portfolio/frontend-features-portfolio/server": [
+        "libs/frontend/features/portfolio/src/server.ts"
+      ],
       "@portfolio/frontend-types": ["libs/frontend/types/src/index.ts"],
       "@portfolio/frontend-ui-about": ["libs/frontend/ui/about/src/index.ts"],
+      "@portfolio/frontend-ui-about/server": [
+        "libs/frontend/ui/about/src/server.ts"
+      ],
       "@portfolio/frontend-ui-landing": [
         "libs/frontend/ui/landing/src/index.ts"
+      ],
+      "@portfolio/frontend-ui-landing/server": [
+        "libs/frontend/ui/landing/src/server.ts"
       ],
       "@portfolio/frontend-ui-portfolio": [
         "libs/frontend/ui/portfolio/src/index.ts"
       ],
+      "@portfolio/frontend-ui-portfolio/server": [
+        "libs/frontend/ui/portfolio/src/server.ts"
+      ],
       "@portfolio/frontend-ui-shared": ["libs/frontend/ui/shared/src/index.ts"],
+      "@portfolio/frontend-ui-shared/server": [
+        "libs/frontend/ui/shared/src/server.ts"
+      ],
       "@portfolio/frontend-utils": ["libs/frontend/utils/src/index.ts"],
+      "@portfolio/frontend-utils/server": ["libs/frontend/utils/src/server.ts"],
       "@portfolio/utils": ["libs/utils/src/index.ts"]
     }
   },

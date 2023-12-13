@@ -8,7 +8,7 @@ import {
   ScrollProvider,
   useScroll,
   useSpring,
-} from '@portfolio/frontend-features-core';
+} from '@portfolio/frontend-utils';
 
 import styles from './images.module.scss';
 
@@ -54,6 +54,7 @@ export const ImagesComponent = ({ project }: IProps) => {
     <div className={styles.imageContainer}>
       {project.images.map((image, i) => (
         <ScrollProvider
+          key={i}
           debug={false}
           options={{
             end: '+=200%',

@@ -1,3 +1,5 @@
+'use client';
+
 import { type ReactNode, createContext, useState } from 'react';
 
 import { useCursor } from '../hooks/use-cursor';
