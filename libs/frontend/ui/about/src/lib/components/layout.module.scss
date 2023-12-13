@@ -250,3 +250,119 @@
     border-radius: 26% 74% 61% 39% / 54% 67% 33% 46%;
   }
 }
+
+@media (max-width: theme('screens.lg')) {
+  .layoutRoot {
+    .background {
+      .topbar {
+        .headerHrapper {
+          margin: -6.2vw 0 0 5vw;
+
+          .layoutHeader {
+            font-size: 8vw;
+          }
+        }
+      }
+
+      .rightbar {
+        .linkWrapper {
+          margin: -1.4vw 0 0 10vh;
+
+          .layoutLink {
+            font-size: 2vw;
+          }
+
+          &:hover {
+            margin: -1.8vw 0 0 10vh;
+
+            .layoutLink {
+              font-size: 2.5vw;
+            }
+          }
+        }
+      }
+      .layoutContentWrapper {
+        .layoutContent {
+          flex-direction: column;
+
+          &.reverse {
+            flex-direction: column-reverse;
+          }
+
+          .column {
+            width: 100%;
+
+            .blobContainer {
+              width: 60%;
+              padding: 2em;
+            }
+
+            .textContainer {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 80%;
+
+              .text {
+                font-size: 2.3vw;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.sm')) {
+  .layoutRoot {
+    .background {
+      .rightbar {
+        .linkWrapper {
+          margin: -2.7vw 0 0 10vh;
+
+          .layoutLink {
+            font-size: 3.5vw;
+          }
+
+          &:hover {
+            margin: -3vw 0 0 10vh;
+
+            .layoutLink {
+              font-size: 4vw;
+            }
+          }
+        }
+      }
+      .layoutContentWrapper {
+        .layoutContent {
+          .column {
+            .blobContainer {
+              width: 92%;
+              padding: 2em;
+
+              .blob {
+                .image {
+                  transform: none !important;
+                }
+              }
+            }
+
+            .textContainer {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 80%;
+
+              .text {
+                font-size: 3.2vw;
+                line-height: 4vw;
+                font-weight: 600;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
