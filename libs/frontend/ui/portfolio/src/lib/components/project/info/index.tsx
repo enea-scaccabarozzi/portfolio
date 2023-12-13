@@ -97,7 +97,7 @@ const Content = ({
             {links.website && (
               <Link href={links.website} target="new">
                 <div className={styles.icon}>
-                  <IconWorld strokeWidth={1} size={30} />
+                  <IconWorld strokeWidth={1} />
                 </div>
               </Link>
             )}
@@ -111,7 +111,7 @@ const Content = ({
             {links.github && (
               <Link href={links.github} target="new">
                 <div className={styles.icon}>
-                  <IconBrandGit strokeWidth={1} size={30} />
+                  <IconBrandGit strokeWidth={1} />
                 </div>
               </Link>
             )}
@@ -125,7 +125,7 @@ const Content = ({
             {links.googlePlay && (
               <Link href={links.googlePlay} target="new">
                 <div className={styles.icon}>
-                  <IconBrandGooglePlay strokeWidth={1} size={30} />
+                  <IconBrandGooglePlay strokeWidth={1} />
                 </div>
               </Link>
             )}

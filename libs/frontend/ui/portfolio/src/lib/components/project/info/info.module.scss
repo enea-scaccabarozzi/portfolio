@@ -37,7 +37,7 @@
       justify-content: flex-end;
 
       .icon {
-        width: 2vw;
+        width: 3vw;
         aspect-ratio: 1/1;
         margin: 0 0.2vw;
         transition: all 0.3s ease-in-out;
@@ -46,6 +46,11 @@
         &:hover {
           transform: scale(1.2);
           margin: 0 0.5vw;
+        }
+
+        svg {
+          width: 100%;
+          height: 100%;
         }
       }
     }
@@ -98,6 +103,82 @@
 
         &:hover {
           background-color: theme('colors.accent.600');
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.lg')) {
+  .info {
+    .column {
+      .row {
+        .label {
+          font-size: 1.9vw;
+        }
+
+        .value {
+          font-size: 1.7vw;
+        }
+      }
+
+      .links {
+        .icon {
+          width: 4vw;
+        }
+      }
+    }
+
+    .section {
+      .title {
+        font-size: 1.9vw;
+      }
+
+      .tags {
+        width: 80%;
+        gap: 0.8vw;
+
+        .tag {
+          font-size: 1.7vw;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.sm')) {
+  .info {
+    .column {
+      .row {
+        .label {
+          font-size: 4vw;
+        }
+
+        .value {
+          font-size: 3.4vw;
+        }
+      }
+
+      .links {
+        .icon {
+          width: 8vw;
+        }
+      }
+    }
+
+    .section {
+      .title {
+        font-size: 4vw;
+      }
+
+      .tags {
+        width: 100%;
+        gap: 2vw;
+
+        .tag {
+          font-size: 3.4vw;
+          padding: 0.5vw 0.9vw;
+          border-radius: 1vw;
         }
       }
     }
