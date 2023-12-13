@@ -1,4 +1,4 @@
-import { FEATURES } from './content/features';
+import { FEATURES } from '../../content/features';
 
 import { FadeIn } from '../shared/fade-in';
 import { FeaturesBento } from '../shared/feature-bento';

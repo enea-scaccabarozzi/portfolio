@@ -1,0 +1,16 @@
+{
+  "name": "docs-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/docs/ui/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/docs/ui/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { Github } from './libs/components';
+import { Github } from '@portfolio/docs-ui/server';
 
 /**
  * @type {import('nextra-theme-docs').DocsThemeConfig}

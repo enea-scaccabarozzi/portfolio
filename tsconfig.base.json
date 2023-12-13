@@ -27,6 +27,7 @@
       "@portfolio/backend-shared": ["libs/backend/shared/src/index.ts"],
       "@portfolio/docs-types": ["libs/docs/types/src/index.ts"],
       "@portfolio/docs-ui": ["libs/docs/ui/src/index.ts"],
+      "@portfolio/docs-ui/server": ["libs/docs/ui/src/server.ts"],
       "@portfolio/frontend-features-about": [
         "libs/frontend/features/about/src/index.ts"
       ],

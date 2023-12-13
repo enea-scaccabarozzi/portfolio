@@ -31,8 +31,8 @@ const nextConfig = {
 const plugins = [
   // Add more Next.js plugins to this list if needed.
   withNx,
+  withNextIntl,
+  withBundleAnalyzer,
 ];
 
-export default withBundleAnalyzer(
-  withNextIntl(composePlugins(...plugins)(nextConfig))
-);
+export default composePlugins(...plugins)(nextConfig);

@@ -1,16 +1,17 @@
-import { IFeature } from '../../../types/feature';
-import LightningIconDark from '../../../../public/landing/features/lightning-dark.svg';
-import LightningIconLight from '../../../../public/landing/features/lightning-light.svg';
-import FingerprintIconDark from '../../../../public/landing/features/fingerprint-dark.svg';
-import FingerprintIconLight from '../../../../public/landing/features/fingerprint-light.svg';
-import CloudIconDark from '../../../../public/landing/features/cloud-dark.svg';
-import CloudIconLight from '../../../../public/landing/features/cloud-light.svg';
-import RefreshIconDark from '../../../../public/landing/features/refresh-dark.svg';
-import RefreshIconLight from '../../../../public/landing/features/refresh-light.svg';
-import ArrowsExpandIconDark from '../../../../public/landing/features/arrows-expand-dark.svg';
-import ArrowsExpandIconLight from '../../../../public/landing/features/arrows-expand-light.svg';
-import BeakerIconDark from '../../../../public/landing/features/beaker-dark.svg';
-import BeakerIconLight from '../../../../public/landing/features/beaker-light.svg';
+import { IFeature } from '@portfolio/docs-types';
+
+import LightningIconDark from '../assets/features/lightning-dark.svg';
+import LightningIconLight from '../assets/features/lightning-light.svg';
+import FingerprintIconDark from '../assets/features/fingerprint-dark.svg';
+import FingerprintIconLight from '../assets/features/fingerprint-light.svg';
+import CloudIconDark from '../assets/features/cloud-dark.svg';
+import CloudIconLight from '../assets/features/cloud-light.svg';
+import RefreshIconDark from '../assets/features/refresh-dark.svg';
+import RefreshIconLight from '../assets/features/refresh-light.svg';
+import ArrowsExpandIconDark from '../assets/features/arrows-expand-dark.svg';
+import ArrowsExpandIconLight from '../assets/features/arrows-expand-light.svg';
+import BeakerIconDark from '../assets/features/beaker-dark.svg';
+import BeakerIconLight from '../assets/features/beaker-light.svg';
 
 export const FEATURES: IFeature[] = [
   {
