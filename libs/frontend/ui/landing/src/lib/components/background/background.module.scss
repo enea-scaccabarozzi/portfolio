@@ -100,9 +100,13 @@
 
 @media (max-width: theme('screens.sm')) {
   .background {
+    .blob {
+      display: none;
+    }
     .specialBlob {
       height: 100px;
       margin: -40px;
+      display: none;
 
       svg {
         path {

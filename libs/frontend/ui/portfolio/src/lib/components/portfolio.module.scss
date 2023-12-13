@@ -139,3 +139,21 @@
     background-size: 90%;
   }
 }
+
+@media (max-width: theme('screens.lg')) {
+  .portfolioPage {
+    .heading {
+      .title {
+        font-size: 9vw;
+      }
+
+      .subtitle {
+        font-size: 3vw;
+      }
+    }
+
+    .spacer {
+      height: 50vh;
+    }
+  }
+}

@@ -37,7 +37,6 @@ const Content = ({ project, isReverse }: IProps) => {
             ),
             height: '100%',
           }}
-          transition={{ delay: 2, duration: 5 }}
         >
           <div className={styles.imageWrapper}>
             <Image
