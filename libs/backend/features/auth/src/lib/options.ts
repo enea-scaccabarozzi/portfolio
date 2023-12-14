@@ -4,6 +4,7 @@ import NextAuth, { type NextAuthOptions } from 'next-auth';
 import { prisma } from '@portfolio/backend-features-database';
 
 import { AppProviders } from './providers';
+import { env } from '@portfolio/backend-shared';
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks,
@@ -12,6 +13,7 @@ import { AppProviders } from './providers';
  * @see https://next-auth.js.org/configuration/options
  **/
 export const authOptions: NextAuthOptions = {
+  secret: env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
   },

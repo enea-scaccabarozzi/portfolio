@@ -15,8 +15,8 @@ export const CONFIG_VALUES: IConfig = {
       name: 'NEXTAUTH_URL',
       value: {
         dev: 'http://localhost:3000',
-        prod: 'http://localhost:3000',
-        staging: 'http://localhost:3000',
+        prod: 'https://me.eneascaccabarozzi.xyz',
+        staging: 'https://staging-me.eneascaccabarozzi.xyz',
       },
     },
   ],

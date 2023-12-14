@@ -1,0 +1,24 @@
+{
+  "Landing": {
+    "student": "Student",
+    "developer": "Developer",
+    "enthusiastic": "Enthusiast"
+  },
+  "Footer": {
+    "contacts": "Let's keep in touch!",
+    "love": "Designed & developed with 💖 by Enea Scaccabarozzi",
+    "fork": "Fork and explore this project from"
+  },
+  "Portfolio": {
+    "heading": "My Projects",
+    "subtitle": "A Digital History",
+    "discoverMore": "Discover More",
+    "close": "Close",
+    "now": "Now",
+    "role": "Role",
+    "commissioner": "Commissioner",
+    "categories": "Categories",
+    "stack": "Stack",
+    "scroll": "Scroll to discover more"
+  }
+}

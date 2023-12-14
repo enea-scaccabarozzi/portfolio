@@ -32,9 +32,6 @@ jobs:
       - name: Set appropriate SHAs for base and head
         uses: nrwl/nx-set-shas@v4
         id: setSHAs
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
       - name: Install Dependencies
         run: pnpm install
@@ -66,9 +63,6 @@ jobs:
       - name: Set appropriate SHAs for base and head
         uses: nrwl/nx-set-shas@v4
         id: setSHAs
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
       - name: Install Dependencies
         run: pnpm install
@@ -100,9 +94,6 @@ jobs:
       - name: Set appropriate SHAs for base and head
         uses: nrwl/nx-set-shas@v4
         id: setSHAs
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
       - name: Install Dependencies
         run: pnpm install
@@ -133,12 +124,16 @@ jobs:
       - name: Set appropriate SHAs for base and head
         uses: nrwl/nx-set-shas@v4
         id: setSHAs
-      - run: |
-          echo "BASE: ${{ steps.setSHAs.outputs.base }}"
-          echo "HEAD: ${{ steps.setSHAs.outputs.head }}"
 
       - name: Install Dependencies
         run: pnpm install
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::909221929648:role/GitHub
+          role-duration-seconds: 14390
+          aws-region: eu-west-2
 
       - name: Deploy to Staging
         if: github.ref == 'refs/heads/develop'

@@ -97,3 +97,26 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: theme('screens.sm')) {
+  .background {
+    .blob {
+      display: none;
+    }
+    .specialBlob {
+      height: 100px;
+      margin: -40px;
+      display: none;
+
+      svg {
+        path {
+          stroke-width: 4;
+        }
+
+        text {
+          font-size: 10px;
+        }
+      }
+    }
+  }
+}

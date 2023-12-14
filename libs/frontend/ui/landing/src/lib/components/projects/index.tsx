@@ -1,14 +1,15 @@
 'use client';
 
 import { motion, useTransform } from 'framer-motion';
-import Link from 'next/link';
 import cn from 'classnames';
+
+import { Link } from '@portfolio/frontend-utils/server';
 
 import {
   ScrollProvider,
   useNavigation,
   useScroll,
-} from '@portfolio/frontend-features-core';
+} from '@portfolio/frontend-utils';
 
 import styles from './projects.module.scss';
 
@@ -16,7 +17,7 @@ const Content = () => {
   const progress = useScroll();
 
   return (
-    <div className={cn(styles.portfolio, styles.wrapper)}>
+    <div className={cn(styles.portfolio, styles.wrapper)} id="portfolio">
       <Link href={'/portfolio'}>
         <motion.div
           className={styles.blob}

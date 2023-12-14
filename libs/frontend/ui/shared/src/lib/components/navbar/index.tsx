@@ -1,14 +1,34 @@
 'use client';
 
+import { useState } from 'react';
+import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import cn from 'classnames';
 
-import { useNavigation } from '@portfolio/frontend-features-core';
+import { useNavigation } from '@portfolio/frontend-utils';
+import { usePathname, useRouter } from '@portfolio/frontend-utils/server';
 
 import styles from './navbar.module.scss';
 
 export const NavbarComponent = () => {
+  const router = useRouter();
+  const locale = useLocale();
+  const pathname = usePathname();
   const { activeSection } = useNavigation();
+
+  const [isLangChecked, setIsLangChecked] = useState(
+    locale === 'it' ? false : true
+  );
+
+  const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setIsLangChecked(true);
+      router.push(pathname, { locale: 'en' });
+    } else {
+      setIsLangChecked(false);
+      router.push(pathname, { locale: 'it' });
+    }
+  };
 
   return (
     <nav className={cn(styles.navbar, 'bg-dark/20')}>
@@ -43,7 +63,12 @@ export const NavbarComponent = () => {
       </ul>
       <div className={styles.intl}>
         <div className={styles.toggle}>
-          <input type="checkbox" className={styles.checkbox} />
+          <input
+            type="checkbox"
+            className={styles.checkbox}
+            onChange={handleLanguageChange}
+            checked={isLangChecked}
+          />
           <div className={styles.knobs}>
             <span />
           </div>

@@ -69,4 +69,127 @@
       }
     }
   }
+  .scrollIndicator {
+    position: absolute;
+    right: 2vw;
+    bottom: 3vh;
+    width: 30px;
+    height: 50px;
+    box-shadow: inset 0 0 0 2px theme('colors.light.DEFAULT');
+    border-radius: 15px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      margin-left: -4px;
+      top: 8px;
+      border-radius: 4px;
+      animation: scroll 1.5s infinite ease-in-out;
+    }
+  }
+}
+
+@keyframes wooble {
+  0% {
+    background-size: 90%;
+  }
+  15% {
+    background-size: 110%;
+  }
+  50% {
+    background-size: 140%;
+  }
+  100% {
+    background-size: 90%;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+}
+@media (max-width: theme('screens.lg')) {
+  .landing {
+    .content {
+      .heading {
+        .cutter:first-child {
+          height: 17.3vw;
+          overflow: hidden;
+
+          h1 {
+            font-size: 25vw;
+          }
+        }
+
+        .cutter:last-child {
+          h2 {
+            font-size: 7.2vw;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.sm')) {
+  .landing {
+    .content {
+      .heading {
+        margin-bottom: 33vh;
+        .cutter:first-child {
+          height: 23vw;
+          overflow: hidden;
+
+          h1 {
+            font-size: 33vw;
+          }
+        }
+
+        .cutter:last-child {
+          h2 {
+            font-size: 9.6vw;
+          }
+        }
+      }
+    }
+
+    .scrollIndicator {
+      right: 5vw;
+      width: 20px;
+      height: 33px;
+      box-shadow: inset 0 0 0 2px theme('colors.light.DEFAULT');
+      border-radius: 12px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: #fff;
+        margin-left: -3px;
+        top: 8px;
+        border-radius: 15px;
+        animation: scroll 1.5s infinite ease-in-out;
+      }
+    }
+  }
+  @keyframes scroll {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+  }
 }

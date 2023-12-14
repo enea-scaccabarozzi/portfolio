@@ -1,0 +1,9 @@
+{
+  "name": "deployer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/deployer",
+  "projectType": "application",
+  "targets": {},
+  "tags": [],
+  "implicitDependencies": ["docs", "web"]
+}

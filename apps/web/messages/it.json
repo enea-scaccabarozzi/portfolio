@@ -1,0 +1,24 @@
+{
+  "Landing": {
+    "student": "Studente",
+    "developer": "Developer",
+    "enthusiastic": "Entusiasta"
+  },
+  "Footer": {
+    "contacts": "Restiamo in contatto!",
+    "love": "Progettato & realizzato con il 💖 da Enea Scaccabarozzi",
+    "fork": "Scopri il codice e clona questo progetto da"
+  },
+  "Portfolio": {
+    "heading": "I Miei Progetti",
+    "subtitle": "Una Storia Digitale",
+    "discoverMore": "Scopri di più",
+    "close": "Chiudi",
+    "now": "Ora",
+    "role": "Ruolo",
+    "commissioner": "Committente",
+    "categories": "Categorie",
+    "stack": "Stack",
+    "scroll": "Scorri per scoprire di più"
+  }
+}

@@ -1,13 +1,13 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 
+import { Link } from '@portfolio/frontend-utils/server';
 import {
   useMousePosition,
   useWindowDimensions,
-} from '@portfolio/frontend-features-core';
+} from '@portfolio/frontend-utils';
 
 import styles from './layout.module.scss';
 
@@ -24,7 +24,6 @@ export const LayoutComponent = ({
   imgUrl,
   rowReverse,
 }: IProps) => {
-  const router = useRouter();
   const mousePosition = useMousePosition();
   const window = useWindowDimensions();
 
@@ -63,9 +62,9 @@ export const LayoutComponent = ({
         </div>
         <div className={styles.rightbar}>
           <div className={styles.linkWrapper}>
-            <div className={styles.layoutLink} onClick={() => router.back()}>
+            <Link href="/" className={styles.layoutLink}>
               « Home »
-            </div>
+            </Link>
           </div>
         </div>
         <div className={styles.layoutContentWrapper}>

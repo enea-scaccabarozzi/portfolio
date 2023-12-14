@@ -1,0 +1,152 @@
+.section {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  .content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+    .imageWrapper {
+      top: 50%;
+      left: 5%;
+      width: 45%;
+      position: absolute;
+      transform: translateY(-50%);
+
+      .image {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    .heading {
+      top: 50%;
+      right: 5%;
+      width: 50%;
+      min-height: 27%;
+      position: absolute;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      text-align: center;
+      color: theme('colors.dark.DEFAULT');
+
+      .date {
+        text-transform: uppercase;
+        font-size: 0.7vw;
+        font-weight: 900;
+      }
+
+      .header h2 {
+        font-size: 5vw;
+        text-transform: none;
+        font-weight: 900;
+      }
+
+      .discoverMore {
+        font-size: 0.7vw;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        &::after {
+          margin-top: 0.5px;
+          content: '';
+          height: 2px;
+          background-color: theme('colors.dark.DEFAULT');
+          width: 0;
+          transition: all 0.2s ease-in-out;
+        }
+      }
+
+      &:hover {
+        .discoverMore {
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  &.reversed {
+    .content {
+      .imageWrapper {
+        left: unset;
+        right: 5%;
+      }
+
+      .heading {
+        right: unset;
+        left: 5%;
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.lg')) {
+  .section {
+    .content {
+      .imageWrapper {
+        top: 20%;
+        left: 5%;
+        width: 55%;
+      }
+
+      .heading {
+        bottom: 20%;
+
+        .date {
+          text-transform: uppercase;
+          font-size: 1.2vw;
+          font-weight: 900;
+        }
+
+        .header h2 {
+          font-size: 5.5vw;
+        }
+
+        .discoverMore {
+          font-size: 1.3vw;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.sm')) {
+  .section {
+    height: 80vh;
+
+    .content {
+      .imageWrapper {
+        top: 20%;
+        width: 80%;
+      }
+
+      .heading {
+        bottom: 0%;
+        width: 100%;
+
+        .date {
+          text-transform: uppercase;
+          font-size: 3vw;
+          font-weight: 900;
+        }
+
+        .header h2 {
+          font-size: 6.5vw;
+        }
+
+        .discoverMore {
+          font-size: 3vw;
+        }
+      }
+    }
+  }
+}

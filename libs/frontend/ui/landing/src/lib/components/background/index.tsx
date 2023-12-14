@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 
-import { useCursor, useMousePosition } from '@portfolio/frontend-features-core';
+import { useCursor, useMousePosition } from '@portfolio/frontend-utils';
 
 import styles from './background.module.scss';
 

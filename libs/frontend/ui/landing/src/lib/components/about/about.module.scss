@@ -128,3 +128,81 @@
     }
   }
 }
+
+@keyframes wooble {
+  0% {
+    background-size: 90%;
+  }
+  15% {
+    background-size: 110%;
+  }
+  50% {
+    background-size: 140%;
+  }
+  100% {
+    background-size: 90%;
+  }
+}
+
+@media (max-width: theme('screens.lg')) {
+  .about {
+    .section {
+      .circle {
+        height: 80vw;
+        left: 80%;
+        stroke-width: 2.5vw;
+      }
+
+      .rectangle {
+        height: 20vw;
+        stroke-width: 1.5vw;
+      }
+
+      .triangle {
+        height: 55vw;
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translate(-50%, -50%);
+        fill: none;
+        stroke: theme('colors.accent.DEFAULT');
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2.3vw;
+      }
+
+      .header {
+        h3 {
+          font-size: 14vw;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.sm')) {
+  .about {
+    .section {
+      .circle {
+        stroke-width: 7vw;
+        left: 70%;
+      }
+
+      .rectangle {
+        height: 20vw;
+        stroke-width: 3.3vw;
+      }
+
+      .triangle {
+        stroke-width: 4.9vw;
+      }
+
+      .header {
+        h3 {
+          font-size: 14vw;
+        }
+      }
+    }
+  }
+}

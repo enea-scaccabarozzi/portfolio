@@ -1,13 +1,11 @@
 import {
-  AboutComponent,
   HeroComponent,
   LandingBackground,
   ProjectsComponent,
 } from '@portfolio/frontend-ui-landing';
-import {
-  FooterComponent,
-  NavbarComponent,
-} from '@portfolio/frontend-ui-shared';
+import { AboutComponent } from '@portfolio/frontend-ui-landing/server';
+import { NavbarComponent } from '@portfolio/frontend-ui-shared';
+import { FooterComponent } from '@portfolio/frontend-ui-shared/server';
 
 export const LandingPage = () => {
   return (

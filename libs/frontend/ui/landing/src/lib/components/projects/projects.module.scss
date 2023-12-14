@@ -227,3 +227,53 @@
     );
   }
 }
+
+@media (max-width: theme('screens.lg')) {
+  .projects {
+    .wrapper {
+      .blob {
+        height: 38vw;
+
+        .heading {
+          h3 {
+            font-size: 4vw;
+          }
+        }
+
+        &:hover {
+          .heading {
+            h3 {
+              font-size: 5vw;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: theme('screens.sm')) {
+  .projects {
+    .wrapper {
+      margin-top: 0vh;
+
+      .blob {
+        height: 85vw;
+
+        .heading {
+          h3 {
+            font-size: 10vw;
+          }
+        }
+
+        &:hover {
+          .heading {
+            h3 {
+              font-size: 13vw;
+            }
+          }
+        }
+      }
+    }
+  }
+}
