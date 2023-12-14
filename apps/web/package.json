@@ -8,8 +8,6 @@
   "scripts": {
     "build": "sst bind next build",
     "build:stats": "WEB_BUNDLE_ANALYZE=true sst bind next build",
-    "serve": "sst bind next dev",
-    "deploy:staging": "sst deploy --stage staging",
-    "deploy:prod": "sst deploy --stage prod"
+    "serve": "sst bind next dev"
   }
 }
