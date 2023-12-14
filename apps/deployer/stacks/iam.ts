@@ -20,7 +20,7 @@ export const IAM = ({ app, stack }: StackContext) => {
       }),
       description: 'Role assumed for deploying from GitHub CI using AWS CDK',
       roleName: 'GitHub',
-      maxSessionDuration: Duration.hours(1),
+      maxSessionDuration: Duration.hours(8),
       inlinePolicies: {
         SSTDeploymentPolicy: new iam.PolicyDocument({
           assignSids: true,
