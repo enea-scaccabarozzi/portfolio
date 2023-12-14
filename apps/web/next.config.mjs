@@ -15,11 +15,24 @@ const withNextIntl = nextIntl('./i18n.ts');
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
+  output: 'standalone',
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  webpack: (
+    config,
+    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+  ) => {
+    config.experiments = {
+      ...config.experiments,
+      topLevelAwait: true,
+    };
+
+    return config;
+  },
+
   experimental: {
     serverComponentsExternalPackages: [
       '@zenstackhq/runtime',
