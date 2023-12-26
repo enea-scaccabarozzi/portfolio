@@ -8,7 +8,7 @@ export const Docs = ({ app, stack }: StackContext) => {
     bind: [...use(Configs).config],
     path: './apps/docs',
     buildCommand:
-      'SKIP_ENV_VALIDATION=true npx open-next@latest build --build-command "pnpm nx build docs --skip-nx-cache"',
+      'SKIP_ENV_VALIDATION=true pnpm open-next build --build-command "pnpm nx build docs --skip-nx-cache"',
     customDomain: {
       isExternalDomain: true,
       domainName: `${

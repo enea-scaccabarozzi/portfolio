@@ -8,7 +8,7 @@ export const Web = ({ app, stack }: StackContext) => {
     bind: [...use(Configs).config],
     path: './apps/web',
     buildCommand:
-      'SKIP_ENV_VALIDATION=true npx open-next@latest build --build-command "pnpm nx build web --skip-nx-cache"',
+      'SKIP_ENV_VALIDATION=true pnpm open-next build --build-command "pnpm nx build web --skip-nx-cache"',
     customDomain: {
       isExternalDomain: true,
       domainName: `${
