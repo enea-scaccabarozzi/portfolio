@@ -46,6 +46,10 @@ const processEnv = {
   NEXTAUTH_URL: Config.NEXTAUTH_URL,
 };
 
+// Load environment variables from config object
+process.env.NEXTAUTH_SECRET = Config.NEXTAUTH_SECRET;
+process.env.NEXTAUTH_URL = Config.NEXTAUTH_URL;
+
 // Don't touch the part below
 // --------------------------
 

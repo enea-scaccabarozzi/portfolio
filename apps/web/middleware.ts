@@ -1,13 +1,28 @@
 import createMiddleware from 'next-intl/middleware';
-import { locales, localePrefix } from '@portfolio/frontend-utils/server';
+import { withAuth } from 'next-auth/middleware';
 
-export default createMiddleware({
+import {
+  locales,
+  localePrefix,
+  stackMiddlewares,
+} from '@portfolio/frontend-utils/server';
+import { NextMiddleware } from 'next/server';
+
+const intlMiddleware = createMiddleware({
   defaultLocale: 'en',
   localePrefix,
   locales,
 });
 
-export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/', '/(it|en)/:path*'],
-};
+const authMiddleware = withAuth() as unknown as NextMiddleware;
+
+export default stackMiddlewares([
+  {
+    middleware: intlMiddleware,
+    matcher: ['^/$', '^/(it|en)(/.*)?'],
+  },
+  {
+    middleware: authMiddleware,
+    matcher: ['^/(admin)(/.*)?'],
+  },
+]);

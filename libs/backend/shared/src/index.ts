@@ -1,1 +1,1 @@
-export { env } from './lib/env.mjs';
+export { env } from './lib/env';

@@ -4,7 +4,7 @@ import { composePlugins, withNx } from '@nx/next';
 import bundleAnalyzer from '@next/bundle-analyzer';
 import nextIntl from 'next-intl/plugin';
 
-import '../../libs/backend/shared/src/lib/env.mjs';
+import '../../libs/backend/shared/src/lib/schema.mjs';
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.WEB_BUNDLE_ANALYZE === 'true',

@@ -73,5 +73,5 @@
     }
   },
   "exclude": ["node_modules", "tmp"],
-  "files": ["./libs/backend/features/auth/src/lib/types.d.ts"]
+  "files": ["./.sst/types/index.ts"]
 }
