@@ -13,6 +13,22 @@
           "libs/frontend/features/portfolio/**/*.{ts,tsx,js,jsx}"
         ]
       }
+    },
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/libs/frontend/features/portfolio"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
     }
   }
 }

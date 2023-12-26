@@ -72,6 +72,5 @@
       "@portfolio/utils": ["libs/utils/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"],
-  "files": ["./.sst/types/index.ts"]
+  "exclude": ["node_modules", "tmp"]
 }

@@ -1,5 +1,6 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import NextAuth, { type NextAuthOptions } from 'next-auth';
+import './types/next-auth';
 
 import { prisma } from '@portfolio/backend-features-database';
 
