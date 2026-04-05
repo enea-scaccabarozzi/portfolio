@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/enea-scaccabarozzi/portfolio/compare/v1.0.0...v1.0.1) (2026-04-05)
+
+
+### Bug Fixes
+
+* resolve deploy 404 issues ([7caf7f2](https://github.com/enea-scaccabarozzi/portfolio/commit/7caf7f21fe466fe9bf2ef8e42e35eeb2aa5fc767))
+
 ## 1.0.0 (2026-04-05)
 
 
