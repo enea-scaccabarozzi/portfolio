@@ -1,0 +1,25 @@
+name: Content Correction
+description: Report a typo or error in a blog article
+labels: ["content"]
+body:
+  - type: input
+    id: article
+    attributes:
+      label: Article
+      description: Title or URL of the article
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What's Wrong
+      description: Describe the error or typo
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Fix
+      description: Optional — your suggested correction
+    validations:
+      required: false

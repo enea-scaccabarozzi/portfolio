@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.github
+out
+.velite
+.tasks
+.DS_Store
+.devcontainer
+docs
+.lefthook-local
