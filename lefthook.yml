@@ -1,8 +1,12 @@
 pre-commit:
   commands:
-    biome:
+    format:
       glob: "**/*.{ts,tsx,js,jsx,json,css,mjs}"
-      run: bunx biome check --write {staged_files}
+      run: bunx biome format --write {staged_files}
+      stage_fixed: true
+    check:
+      glob: "**/*.{ts,tsx,js,jsx,json,css,mjs}"
+      run: bunx biome check {staged_files}
       stage_fixed: true
 
 commit-msg:
@@ -12,5 +16,11 @@ commit-msg:
 
 pre-push:
   commands:
+    format-check:
+      run: bun run format:check
+    check:
+      run: bun run check
+    tsc:
+      run: bunx tsc --noEmit
     build:
       run: bun run build
