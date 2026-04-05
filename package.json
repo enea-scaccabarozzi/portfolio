@@ -4,8 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "bunx velite dev & next dev",
+    "build": "bunx velite build && next build",
     "start": "next start",
     "check": "biome check .",
     "check:fix": "biome check --write .",
