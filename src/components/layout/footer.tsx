@@ -26,6 +26,12 @@ interface FooterProps {
 
 export function Footer({ locale }: FooterProps) {
   const t = getTranslations(locale)
+
+  const rssLink = {
+    href: `/${locale}/feed.xml`,
+    label: t.rss.feed,
+  }
+
   return (
     <footer className="border-t border-border py-8">
       <div className="max-w-2xl mx-auto w-full flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
@@ -45,6 +51,11 @@ export function Footer({ locale }: FooterProps) {
               </a>
             </li>
           ))}
+          <li>
+            <a href={rssLink.href} className="text-sm text-muted link-hover">
+              {rssLink.label}
+            </a>
+          </li>
         </ul>
       </div>
     </footer>

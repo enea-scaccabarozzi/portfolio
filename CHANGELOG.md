@@ -1,5 +1,23 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+* Favicon set (SVG with light/dark theme support, ICO, PNG 16×16/32×32, apple-touch-icon)
+* Default and per-post Open Graph images (1200×630) generated at build time via satori
+* Web app manifest (`site.webmanifest`)
+* Theme-color meta tags for light and dark modes
+* Build-time asset generation scripts (`scripts/generate-favicons.ts`, `scripts/generate-og.ts`)
+* JSON-LD structured data on all pages (Person, BlogPosting, CollectionPage, BreadcrumbList)
+* RSS 2.0 feeds per locale (`/en/feed.xml`, `/it/feed.xml`) with RSS link in footer
+* Blog post keywords and article:tag metadata from existing tags
+* Sitemap improvements: real post dates and change frequency hints
+
+### Fixed
+
+* Canonical URLs now include trailing slashes for consistency with site configuration
+
 ## [1.1.0](https://github.com/enea-scaccabarozzi/portfolio/compare/v1.0.1...v1.1.0) (2026-04-07)
 
 

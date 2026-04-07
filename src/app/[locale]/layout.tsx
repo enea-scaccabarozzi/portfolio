@@ -31,10 +31,13 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
     },
     twitter: { card: 'summary_large_image' },
     alternates: {
-      canonical: `${siteConfig.url}/${locale}`,
+      canonical: `${siteConfig.url}/${locale}/`,
       languages: {
-        [locale]: `${siteConfig.url}/${locale}`,
-        [otherLocale]: `${siteConfig.url}/${otherLocale}`,
+        [locale]: `${siteConfig.url}/${locale}/`,
+        [otherLocale]: `${siteConfig.url}/${otherLocale}/`,
+      },
+      types: {
+        'application/rss+xml': `${siteConfig.url}/${locale}/feed.xml`,
       },
     },
   }

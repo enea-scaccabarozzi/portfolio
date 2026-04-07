@@ -29,6 +29,17 @@ export interface Translations {
   footer: {
     copyright: string
   }
+  breadcrumbs: {
+    home: string
+    blog: string
+    experience: string
+    projects: string
+  }
+  rss: {
+    feed: string
+    blogTitle: string
+    blogDescription: string
+  }
 }
 
 export const en: Translations = {
@@ -65,5 +76,16 @@ export const en: Translations = {
   },
   footer: {
     copyright: '© {year} Enea Scaccabarozzi',
+  },
+  breadcrumbs: {
+    home: 'Home',
+    blog: 'Blog',
+    experience: 'Career',
+    projects: 'Projects',
+  },
+  rss: {
+    feed: 'RSS Feed',
+    blogTitle: 'Enea Scaccabarozzi — Blog',
+    blogDescription: 'Technical notes and knowledge collected over the years.',
   },
 }

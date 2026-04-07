@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "bunx velite dev & next dev",
-    "build": "bunx velite build && next build",
+    "build": "bunx velite build && bun run scripts/generate-favicons.ts && bun run scripts/generate-og.ts && bun run scripts/generate-rss.ts && next build",
     "start": "next start",
     "check": "biome check .",
     "check:fix": "biome check --write .",
@@ -19,12 +19,14 @@
     "@biomejs/biome": "^2.4.10",
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
+    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "lefthook": "^2.1.4",
     "postcss": "^8.5.8",
+    "satori": "^0.26.0",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3",
     "velite": "^0.3.1"

@@ -35,4 +35,15 @@ export const it: Translations = {
   footer: {
     copyright: '© {year} Enea Scaccabarozzi',
   },
+  breadcrumbs: {
+    home: 'Home',
+    blog: 'Blog',
+    experience: 'Carriera',
+    projects: 'Progetti',
+  },
+  rss: {
+    feed: 'RSS Feed',
+    blogTitle: 'Enea Scaccabarozzi — Blog',
+    blogDescription: 'Note tecniche e conoscenze accumulate negli anni.',
+  },
 }
