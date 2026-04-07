@@ -1,0 +1,266 @@
+---
+title: "Thinking in Nx"
+slug: thinking-in-nx
+lang: en
+date: 2024-08-19
+description: "Nx offers a structured approach to monorepo management that turns complexity into streamlined workflows through clear library hierarchies."
+tags: ["nx", "monorepo", "dx"]
+---
+
+Hey there, fellow web developers! In the realm of modern web development, there's a standout tool rapidly gaining ground for monorepo management: [Turborepo](https://turbo.build/repo). Renowned for its efficiency, it swiftly structures complex projects, offering a remarkable degree of flexibility. But, there's a plot twist: this same flexibility can sometimes lead us astray. Let's be clear, Turbo is fantastic, providing sleek and effective solutions, but today I want to shine a light on a different perspective. It's not just about the tools; it's the strategy and mindset behind their use that truly count in shaping your monorepo journey. Enter Nx, a contender that's often overlooked as being old-fashioned or bulky, yet offers compelling advantages in certain scenarios.
+
+I'm not here to set up a direct showdown between Turbo and Nx. Instead, I aim to highlight scenarios where Nx could potentially outshine, thanks to its approach to monorepo management that emphasizes precision and integration, enhancing the development experience significantly.
+
+In my own development experience, I've noticed that Turbo's extensive flexibility can be overwhelming at times. Here, Nx offers a structured and streamlined alternative, acting as a reliable guide through the intricate landscape of code – fostering improved developer experience and more efficient project management.
+
+When dealing with large-scale projects, the complexities and dynamics can be daunting – the sheer size, intricate functionalities, and the involved developer team pose significant challenges. This is where a tool like Nx, with its clear and disciplined approach, can be a game-changer, turning potential chaos into structured harmony.
+
+## Stepping Into the World of Nx: Understanding Apps and Libs 🔍
+
+Before we dive deeper into Nx, let's cover some foundational ground. In the world according to Nx:
+
+- **Apps**: These are your front-runners, the ones facing the world head-on – be it web, mobile, or any service-oriented applications.
+- **Libs**: Here lie the covert operators, the backend warriors providing the necessary support and functionalities discreetly empowering your apps.
+
+As we journey through the structured landscape that Nx offers, we understand that it's not just about building – it's about building smart, with a vision that turns complexity into streamlined workflows. Let's navigate this landscape, keeping our approach balanced and focused.
+
+## Tackling Common Misconceptions 🌟
+
+A common trap many developers fall into concerns the notion of a library within a monorepo. There's a tendency to craft libraries as overly generic entities, detached from specific applications or their ecosystems. This leads to the belief that libraries should only be created when their functionality can be reused across multiple parts of the project. While this concept isn't wrong per se, it doesn't harness the full spectrum of what Nx has to offer.
+
+In the realm of Nx, libraries shine brightest when they manage to carve out and refine a specific scope of functionality – not necessarily making them universal puzzle pieces, but rather, distinct entities that stand on their own, separate from the project's other elements. This approach doesn't dilute their value; it enhances it, enabling a piece of functionality to be self-sufficient and cleanly segregated from the rest.
+
+To leverage libraries to their fullest in Nx, think of them less as mere code containers and more like APIs or interfaces. They're not just there to be called upon by other parts of the project; they're there to offer, expose, and encapsulate functionality, making it both accessible and isolated.
+
+So, don't hesitate to craft libraries that serve specific, focused purposes within your project. As long as they maintain their independence and contribute to the clarity and modularity of your code, they're fulfilling their role perfectly in the Nx ecosystem. Let's embrace the nuanced, strategic approach to libraries that Nx advocates – it's about making each piece of your project clearly defined, purpose-driven, and, ultimately, more manageable.
+
+## Reframing Library Thinking 📚
+
+One challenge we often face is adhering to a structured approach to libraries. The pitfall? Drifting into a less disciplined, arbitrary arrangement where libraries pile up, blurring lines between functionalities and leading to circular dependencies or other snags that can make a project unwieldy.
+
+Here, Nx offers a lifeline, advocating for a standardized library hierarchy. This framework not only ensures libraries are pre-defined according to specific types—which can, of course, adapt from one project to another—but also mandates these definitions remain constant throughout the development lifecycle.
+
+Thus, the emphasis shifts towards defining and segregating the various scopes of functionality within the project. It's crucial not just to delineate these areas but to establish a clear library hierarchy, fostering isolation and independence of functionalities.
+
+Nx typically guides us towards four main library categories, which serve as a starting point:
+
+- **Feature**: Libraries that encapsulate high-level functionalities, potentially used across different parts of the project and composed of smaller libraries.
+- **Data-Access**: Libraries dedicated to data handling, like HTTP requests or database interactions.
+- **UI**: Libraries that focus on user interface components and directives.
+- **Utils**: Utility libraries offering reusable codes, such as common functions or constants.
+
+These are mere templates; the actual implementation can and should be tailored to fit each unique project. But what's crucial is the pre-definition of these types, ensuring they remain consistent throughout the project's life.
+
+Moreover, this structured approach underpins a clear project hierarchy, with feature libraries depending on UI, Data-Access, or Utils libraries, but never the other way around. Data-Access libraries, in turn, lean on UI and Utils libraries, and so on.
+
+By adopting this model, we gain a lucid understanding of the project's dependencies. This clarity not only simplifies maintenance over time but also eases the onboarding process for new developers. They can swiftly grasp the project structure, the interlibrary relationships, and focus on specific functionalities without being overwhelmed.
+
+On a personal note, in my React-based TypeScript projects, I've found it beneficial to pivot from Data-Access to Types libraries, reshaping the library hierarchy to better suit the dynamic web application environment. This shift allows for a clearer separation of concerns: Feature libraries manage state and data-fetching without delving into UI details, UI libraries present application states, Utils continue providing essential shared functionalities, and Types libraries define shared data structures and interfaces.
+
+This approach, combined with effective scope management, enables a more efficient isolation of project functionalities, leading to an enhanced development experience overall.
+
+## A Real-World Scenario 🚀
+
+Let's dive into a practical example: envision a project with three main components – a React web application, a mobile app powered by Expo, and a backend built with NestJS. This setup might sound classic or even a bit retro to some, but it's a solid, proven structure that many developers are comfortable with.
+
+To get this trio working harmoniously, we start by clearly defining each app. In our scenario, we have three distinct players, each with its own unique role and environment:
+
+```text
+.
+├── apps/
+│   ├── web/
+│   │   ├── [...]
+│   │   ├── tsconfig.json
+│   │   ├── tailwind.config.js
+│   │   ├── README.md
+│   │   └── app.ts
+│   ├── mobile/
+│   │   ├── index.ts
+│   │   └── [...]
+│   └── backend/
+│       ├── main.ts
+│       └── [...]
+└── libs/
+    └── [...]
+```
+
+Here's where we get a clear picture: the apps within our project are streamlined, each carrying just the essential code needed to bring them to life. For all three – the web, mobile, and backend segments – the critical pieces are the entry points. These are the heartbeats of our applications, responsible for kick-starting the apps and weaving the business logic seamlessly into other areas of our monorepo.
+
+It's also smart to include some configuration files at this level, like the Tailwind configuration files that set the visual rhythm for the entire application, or a README file that acts as a welcoming guidebook for any developer stepping into the project.
+
+Now, let's slice into the core of our structure: the libraries. But hold on – before we dive deeper, it's crucial to have a clear map of the territories we're navigating. While Nx does an admirable job in lightening the load of tasks such as relocating libraries, a bird's-eye view of our project's structure is indispensable before moving forward.
+
+Imagine our project as a constellation of five main semantic scopes:
+
+- **web**, **mobile**, and **backend**: These form the three primary pillars of our project, each housing libraries tailored specifically to each application.
+- **shared**: This is the communal space, a crossroads where libraries that can be leveraged across all three applications reside.
+- **frontend**: Acting as a bridge between the web and mobile realms, this scope encompasses libraries that both spheres can utilize, including shared UI components, authentication systems, or data-fetching tools.
+
+Moreover, each main scope can, if needed, be broken down into sub-scopes to further isolate large chunks of the project. For example, within frontend, there could be an auth sub-scope, bundling together all libraries essential for user authentication, complete with shared UI components, business logic, and API calls. This level of organization not only clarifies the structure but also streamlines the development process, making it more intuitive and manageable.
+
+```text
+.
+├── apps/
+│   └── [...]
+└── libs/
+    ├── web/
+    │   └── [...]
+    ├── backend/
+    │   └── [...]
+    ├── mobile/
+    │   └── [...]
+    ├── frontend/
+    │   ├── auth/
+    │   │   └── [...]
+    │   └── [...]
+    └── shared/
+        └── [...]
+```
+
+Now we've reached the exciting part: it's time to start coding within our libraries. But, let's not dive in headfirst without checking our gear. It's crucial to adhere to our predefined library hierarchy and decide which libraries need to spring to life and which can remain conceptual for now.
+
+Following the framework we outlined earlier, our project structure could look something like this:
+
+```text
+.
+├── apps/
+│   └── [...]
+└── libs/
+    ├── web/
+    │   ├── features/
+    │   │   ├── [...]
+    │   │   └── index.ts
+    │   ├── ui/
+    │   │   └── [...]
+    │   └── types/
+    │       └── [...]
+    ├── backend/
+    │   ├── features/
+    │   │   └── [...]
+    │   └── types/
+    │       └── [...]
+    ├── mobile/
+    │   └── [...]
+    ├── frontend/
+    │   └── [...]
+    └── shared/
+        ├── utils/
+        │   └── [...]
+        └── types/
+            └── [...]
+```
+
+This setup's semantic clarity is a real boon. It's not just about organizing; it's about creating an intuitive roadmap that a new developer can easily navigate. Understanding which libraries are at their disposal and how they can be harnessed is pivotal for smooth onboarding and efficient project progression.
+
+Moreover, should there be a need to delve deeper into what a library offers, one simply needs to peek into the index.ts file of any given library. This file acts as the library's front door, showcasing all the features it offers in a clear and succinct manner, free from the clutter of implementation details.
+
+And here's a little piece of advice: as you can see, it's not mandatory to populate every scope with every type of library from the get-go. What's vital is establishing from the start which libraries are necessary and which are not, adhering to the library hierarchy. This approach ensures a clean, streamlined project structure, where well-defined libraries shine brighter than a crowded space of ambiguous ones.
+
+<Alert variant="warning" title="Note">
+This example serves as an illustrative guide meant to provide a comprehensive overview. Not every project will require such distinct compartmentalization; sometimes, less is more, or the structure might be inherently complex. However, having a clear picture of the project's framework before moving forward, and setting rules to maintain its integrity over time, is indispensable for long-term project health and scalability.
+</Alert>
+
+## Pro Tips for Navigating Nx 🛠️
+
+### Crafting Import Rules
+
+Nx empowers us to uphold quality and consistency standards through customizable import rules. By utilizing tags, we can create a network of guidelines, prompting errors or warnings during development if these rules are sidestepped. This feature ensures that libraries adhere to the architectural principles set from the outset.
+
+For instance, imagine implementing a rule that encapsulates the ethos of our project structure:
+
+```json
+// .eslintrc.json
+{
+  // ... more ESLint config here
+
+  // @nx/enforce-module-boundaries should already exist within an "overrides"
+  // block using "files": ["*.ts", "*.tsx", "*.js", "*.jsx"]
+  "@nx/enforce-module-boundaries": [
+    "error",
+    {
+      "allow": [],
+      "depConstraints": [
+        {
+          "sourceTag": "scope:shared",
+          "onlyDependOnLibsWithTags": ["scope:shared"]
+        },
+        {
+          "sourceTag": "scope:frontend",
+          "onlyDependOnLibsWithTags": ["scope:shared", "scope:frontend"]
+        },
+        {
+          "sourceTag": "scope:mobile",
+          "onlyDependOnLibsWithTags": [
+            "scope:shared",
+            "scope:frontend",
+            "scope:mobile"
+          ]
+        }
+      ]
+    }
+  ]
+
+  // ... more ESLint config here
+}
+```
+
+This rule acts as a guardian, maintaining the sanctity of our project's structure by ensuring that mobile libraries keep within their designated lanes, borrowing only from frontend or shared realms.
+
+If a developer inadvertently attempts an import violating this decree, Nx steps in:
+
+```typescript
+// Attempted import throwing an error due to violation of the predefined Nx rule
+import { unauthorizedLib } from '@myproject/backend';
+// This line triggers a warning or error
+```
+
+Correcting this misstep aligns with Nx's standards:
+
+```typescript
+// Corrected import adhering to the Nx rule
+import { authorizedFeature } from '@myproject/shared';
+// Now, this line complies with our project's architectural guidelines
+```
+
+These snippets showcase Nx's capacity to not only guide the structural integrity of your project but also to enforce it actively, turning potential missteps into teachable moments and ensuring that your project's architecture remains consistent and scalable.
+
+### Visualizing with the Project Graph 📊
+
+Nx offers a powerful feature for visualizing the structure and dependencies of your project: the project graph. This graph provides a clear and concise overview of how your libraries are interconnected, illuminating the relationships between them through an intuitive web interface.
+
+By running the command:
+
+```bash
+nx graph
+```
+
+You'll launch a graphical representation of your project's architecture. This visual aid is invaluable for understanding the complex web of dependencies within your monorepo. It highlights how each library is linked, helping you identify potential areas for optimization, detect tightly coupled components, or simply get a better grasp of your project's overall structure.
+
+The project graph is not just a static picture; it's an interactive tool that allows you to zoom in on specific libraries, trace paths between them, and uncover the underlying structure of your application ecosystem. By leveraging this feature, you can make informed decisions about refactoring, ensure adherence to your architectural guidelines, and maintain a clean, manageable codebase.
+
+### Leveraging Nx Generators 🔧
+
+Even with the most thorough planning, the evolving needs of a project can take us by surprise. That's where Nx steps in, offering flexibility and support through its powerful generators. These tools help manage the ebb and flow of project requirements, making it easy to adapt by shifting libraries across different scopes or spinning up new ones quickly and efficiently.
+
+For instance, if you need to move an existing library to a different scope, Nx simplifies this process immensely. With just a command, you can relocate a library and Nx takes care of the heavy lifting, updating your project configuration and all relevant imports:
+
+```bash
+# Command to move 'frontend-features-auth' library to 'libs/shared/auth'
+nx g mv --project frontend-features-auth --destination libs/shared/auth
+```
+
+This command tells Nx to move the frontend-features-auth library to the libs/shared/auth directory. Nx handles the necessary adjustments, ensuring that all references to this library in your project point to the new location. This feature is particularly useful for maintaining a clean and organized codebase, allowing your project's structure to evolve seamlessly alongside its requirements.
+
+Nx generators aren't just about moving libraries; they're also about creating new ones with ease. They follow your predefined templates and structures, ensuring that new additions adhere to your project's architectural guidelines and style, thus maintaining consistency and quality across your codebase.
+
+## Wrapping Up: The True Power of Nx 🚀
+
+In my view, the real strength of Nx doesn't lie in its vast ecosystem of plugins; rather, it shines through its ability to seamlessly integrate with a development philosophy that's often overlooked for the sake of more flexible, albeit less structured, solutions. Nx isn't a one-size-fits-all answer, and I acknowledge that for smaller projects, its structured approach might initially seem like overkill. However, I believe there's a fine line where this approach can be transformative, a line that's too often ignored.
+
+If you're curious about how Nx can enhance your project management, I strongly recommend diving into the [official documentation](https://nx.dev/). It's comprehensive, clear, and concise, providing insights on how Nx can scale with projects of any size. For a deeper dive, specifically, check out these enlightening sections: [Application and Libraries](https://nx.dev/concepts/more-concepts/applications-and-libraries), [Grouping Libraries](https://nx.dev/concepts/more-concepts/grouping-libraries), and [Library Types](https://nx.dev/concepts/more-concepts/library-types).
+
+I hope this exploration into Nx has shed some light on its potential benefits for your projects. But above all, happy coding!
+
+<Alert variant="info" title="Ported Article">
+This article was originally published on August 19, 2024 on a previous version of this blog. It has been ported here with minor formatting adjustments.
+</Alert>

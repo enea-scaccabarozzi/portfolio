@@ -1,0 +1,266 @@
+---
+title: "Pensare in Nx"
+slug: thinking-in-nx
+lang: it
+date: 2024-08-19
+description: "Nx offre un approccio strutturato alla gestione dei monorepo, trasformando la complessità in workflow ordinati grazie a gerarchie di librerie chiare."
+tags: ["nx", "monorepo", "dx"]
+---
+
+Ciao, cari sviluppatori web! Nel panorama dello sviluppo web moderno, c'è uno strumento che sta rapidamente guadagnando terreno nella gestione dei monorepo: [Turborepo](https://turbo.build/repo). Rinomato per la sua efficienza, struttura rapidamente progetti complessi, offrendo un notevole grado di flessibilità. Ma c'è un colpo di scena: questa stessa flessibilità a volte può portarci fuori strada. Sia chiaro, Turbo è fantastico, offre soluzioni eleganti ed efficaci, ma oggi voglio mettere in luce una prospettiva diversa. Non si tratta solo degli strumenti; è la strategia e la mentalità dietro il loro utilizzo che contano davvero nel plasmare il tuo percorso con i monorepo. Entra in scena Nx, un contendente spesso snobbato perché ritenuto antiquato o pesante, ma che offre vantaggi convincenti in determinati scenari.
+
+Non sono qui per creare un confronto diretto tra Turbo e Nx. Il mio obiettivo è piuttosto evidenziare gli scenari in cui Nx potrebbe brillare di più, grazie al suo approccio alla gestione dei monorepo che enfatizza precisione e integrazione, migliorando significativamente l'esperienza di sviluppo.
+
+Nella mia esperienza di sviluppo, ho notato che l'ampia flessibilità di Turbo può risultare travolgente a volte. Qui, Nx offre un'alternativa strutturata e snella, fungendo da guida affidabile attraverso il complesso panorama del codice – favorendo una migliore developer experience e una gestione del progetto più efficiente.
+
+Quando si ha a che fare con progetti su larga scala, le complessità e le dinamiche possono essere scoraggianti – le dimensioni, le funzionalità articolate e il team di sviluppatori coinvolto pongono sfide significative. È qui che uno strumento come Nx, con il suo approccio chiaro e disciplinato, può fare la differenza, trasformando il potenziale caos in armonia strutturata.
+
+## Entrare nel Mondo di Nx: App e Librerie 🔍
+
+Prima di addentrarci in Nx, copriamo alcune basi fondamentali. Nel mondo secondo Nx:
+
+- **App**: Sono i tuoi protagonisti, quelli che affrontano il mondo direttamente – che si tratti di applicazioni web, mobile o qualsiasi servizio.
+- **Lib**: Qui si trovano gli operatori nascosti, i guerrieri del backend che forniscono il supporto e le funzionalità necessarie, potenziando discretamente le tue app.
+
+Mentre percorriamo il panorama strutturato che Nx offre, capiamo che non si tratta solo di costruire – si tratta di costruire in modo intelligente, con una visione che trasforma la complessità in workflow ordinati. Navighiamo questo panorama, mantenendo il nostro approccio equilibrato e focalizzato.
+
+## Sfatare i Luoghi Comuni 🌟
+
+Una trappola comune in cui molti sviluppatori cadono riguarda la concezione di una libreria all'interno di un monorepo. C'è la tendenza a creare librerie come entità eccessivamente generiche, scollegate da applicazioni specifiche o dai loro ecosistemi. Questo porta alla convinzione che le librerie dovrebbero essere create solo quando la loro funzionalità può essere riutilizzata in più parti del progetto. Sebbene questo concetto non sia sbagliato di per sé, non sfrutta l'intero spettro di ciò che Nx ha da offrire.
+
+Nel mondo di Nx, le librerie brillano di più quando riescono a ritagliare e perfezionare uno scope specifico di funzionalità – non necessariamente rendendole pezzi universali di un puzzle, ma piuttosto entità distinte che reggono da sole, separate dagli altri elementi del progetto. Questo approccio non ne diluisce il valore; lo potenzia, consentendo a una funzionalità di essere autosufficiente e chiaramente segregata dal resto.
+
+Per sfruttare le librerie al massimo in Nx, pensale meno come semplici contenitori di codice e più come API o interfacce. Non sono lì solo per essere chiamate da altre parti del progetto; sono lì per offrire, esporre e incapsulare funzionalità, rendendole al contempo accessibili e isolate.
+
+Quindi, non esitare a creare librerie che servano scopi specifici e focalizzati all'interno del tuo progetto. Finché mantengono la loro indipendenza e contribuiscono alla chiarezza e modularità del tuo codice, stanno svolgendo perfettamente il loro ruolo nell'ecosistema Nx. Abbracciamo l'approccio sfumato e strategico alle librerie che Nx promuove – si tratta di rendere ogni pezzo del tuo progetto chiaramente definito, guidato da uno scopo e, in definitiva, più gestibile.
+
+## Ripensare le Librerie 📚
+
+Una sfida che affrontiamo spesso è aderire a un approccio strutturato alle librerie. La trappola? Scivolare in una disposizione meno disciplinata e arbitraria dove le librerie si accumulano, confondendo i confini tra le funzionalità e portando a dipendenze circolari o altri intoppi che possono rendere un progetto ingestibile.
+
+Qui, Nx offre una via d'uscita, promuovendo una gerarchia standardizzata delle librerie. Questo framework non solo assicura che le librerie siano predefinite secondo tipi specifici—che possono, naturalmente, adattarsi da un progetto all'altro—ma impone anche che queste definizioni rimangano costanti durante l'intero ciclo di sviluppo.
+
+Quindi, l'enfasi si sposta verso la definizione e la segregazione dei vari scope di funzionalità all'interno del progetto. È cruciale non solo delineare queste aree ma stabilire una chiara gerarchia delle librerie, favorendo l'isolamento e l'indipendenza delle funzionalità.
+
+Nx tipicamente ci guida verso quattro categorie principali di librerie, che servono come punto di partenza:
+
+- **Feature**: Librerie che incapsulano funzionalità di alto livello, potenzialmente utilizzate in diverse parti del progetto e composte da librerie più piccole.
+- **Data-Access**: Librerie dedicate alla gestione dei dati, come richieste HTTP o interazioni con il database.
+- **UI**: Librerie focalizzate su componenti dell'interfaccia utente e direttive.
+- **Utils**: Librerie di utilità che offrono codice riutilizzabile, come funzioni comuni o costanti.
+
+Questi sono semplici template; l'implementazione effettiva può e dovrebbe essere adattata a ogni progetto unico. Ma ciò che è cruciale è la predefinizione di questi tipi, assicurando che rimangano consistenti durante tutta la vita del progetto.
+
+Inoltre, questo approccio strutturato sostiene una chiara gerarchia di progetto, con le librerie Feature che dipendono da UI, Data-Access o Utils, ma mai il contrario. Le librerie Data-Access, a loro volta, si appoggiano a UI e Utils, e così via.
+
+Adottando questo modello, otteniamo una comprensione lucida delle dipendenze del progetto. Questa chiarezza non solo semplifica la manutenzione nel tempo ma facilita anche il processo di onboarding per i nuovi sviluppatori. Possono rapidamente comprendere la struttura del progetto, le relazioni tra le librerie e concentrarsi su funzionalità specifiche senza essere sopraffatti.
+
+Come nota personale, nei miei progetti React-based in TypeScript, ho trovato utile passare da Data-Access a librerie Types, rimodellando la gerarchia delle librerie per adattarla meglio all'ambiente dinamico delle applicazioni web. Questo cambio permette una separazione delle responsabilità più chiara: le librerie Feature gestiscono stato e data-fetching senza addentrarsi nei dettagli UI, le librerie UI presentano gli stati dell'applicazione, le Utils continuano a fornire funzionalità condivise essenziali, e le librerie Types definiscono strutture dati e interfacce condivise.
+
+Questo approccio, combinato con una gestione efficace degli scope, consente un isolamento più efficiente delle funzionalità del progetto, portando a un'esperienza di sviluppo complessivamente migliore.
+
+## Uno Scenario Reale 🚀
+
+Tuffiamoci in un esempio pratico: immagina un progetto con tre componenti principali – un'applicazione web React, un'app mobile basata su Expo e un backend costruito con NestJS. Questa configurazione potrebbe sembrare classica o persino un po' retrò per alcuni, ma è una struttura solida e collaudata con cui molti sviluppatori si trovano a proprio agio.
+
+Per far funzionare questo trio in armonia, iniziamo definendo chiaramente ogni app. Nel nostro scenario, abbiamo tre attori distinti, ognuno con il proprio ruolo e ambiente unico:
+
+```text
+.
+├── apps/
+│   ├── web/
+│   │   ├── [...]
+│   │   ├── tsconfig.json
+│   │   ├── tailwind.config.js
+│   │   ├── README.md
+│   │   └── app.ts
+│   ├── mobile/
+│   │   ├── index.ts
+│   │   └── [...]
+│   └── backend/
+│       ├── main.ts
+│       └── [...]
+└── libs/
+    └── [...]
+```
+
+Qui il quadro diventa chiaro: le app all'interno del nostro progetto sono snelle, ognuna porta solo il codice essenziale necessario per funzionare. Per tutti e tre i segmenti – web, mobile e backend – i pezzi critici sono gli entry point. Sono il cuore pulsante delle nostre applicazioni, responsabili dell'avvio delle app e dell'integrazione della business logic nelle altre aree del monorepo.
+
+È anche intelligente includere alcuni file di configurazione a questo livello, come i file di configurazione di Tailwind che dettano il ritmo visivo dell'intera applicazione, o un file README che funge da guida di benvenuto per qualsiasi sviluppatore che si avvicina al progetto.
+
+Ora, entriamo nel cuore della nostra struttura: le librerie. Ma un momento – prima di addentrarci, è fondamentale avere una mappa chiara dei territori che stiamo navigando. Sebbene Nx faccia un lavoro ammirevole nell'alleggerire il carico di task come la rilocazione delle librerie, una visione d'insieme della struttura del nostro progetto è indispensabile prima di procedere.
+
+Immagina il nostro progetto come una costellazione di cinque scope semantici principali:
+
+- **web**, **mobile** e **backend**: Formano i tre pilastri principali del nostro progetto, ognuno ospitando librerie su misura per la specifica applicazione.
+- **shared**: È lo spazio comune, un crocevia dove risiedono le librerie utilizzabili da tutte e tre le applicazioni.
+- **frontend**: Fungendo da ponte tra i mondi web e mobile, questo scope comprende librerie che entrambe le sfere possono utilizzare, inclusi componenti UI condivisi, sistemi di autenticazione o strumenti di data-fetching.
+
+Inoltre, ogni scope principale può, se necessario, essere suddiviso in sotto-scope per isolare ulteriormente grandi porzioni del progetto. Ad esempio, all'interno di frontend, potrebbe esserci un sotto-scope auth, che raggruppa tutte le librerie essenziali per l'autenticazione utente, complete di componenti UI condivisi, business logic e chiamate API. Questo livello di organizzazione non solo chiarisce la struttura ma snellisce anche il processo di sviluppo, rendendolo più intuitivo e gestibile.
+
+```text
+.
+├── apps/
+│   └── [...]
+└── libs/
+    ├── web/
+    │   └── [...]
+    ├── backend/
+    │   └── [...]
+    ├── mobile/
+    │   └── [...]
+    ├── frontend/
+    │   ├── auth/
+    │   │   └── [...]
+    │   └── [...]
+    └── shared/
+        └── [...]
+```
+
+Ora arriviamo alla parte entusiasmante: è il momento di iniziare a scrivere codice nelle nostre librerie. Ma non tuffiamoci a capofitto senza controllare l'attrezzatura. È cruciale aderire alla nostra gerarchia predefinita di librerie e decidere quali devono prendere vita e quali possono rimanere concettuali per ora.
+
+Seguendo il framework che abbiamo delineato prima, la struttura del nostro progetto potrebbe apparire così:
+
+```text
+.
+├── apps/
+│   └── [...]
+└── libs/
+    ├── web/
+    │   ├── features/
+    │   │   ├── [...]
+    │   │   └── index.ts
+    │   ├── ui/
+    │   │   └── [...]
+    │   └── types/
+    │       └── [...]
+    ├── backend/
+    │   ├── features/
+    │   │   └── [...]
+    │   └── types/
+    │       └── [...]
+    ├── mobile/
+    │   └── [...]
+    ├── frontend/
+    │   └── [...]
+    └── shared/
+        ├── utils/
+        │   └── [...]
+        └── types/
+            └── [...]
+```
+
+La chiarezza semantica di questa configurazione è un vero vantaggio. Non si tratta solo di organizzare; si tratta di creare una mappa intuitiva che un nuovo sviluppatore può navigare facilmente. Capire quali librerie sono a disposizione e come possono essere sfruttate è fondamentale per un onboarding fluido e una progressione efficiente del progetto.
+
+Inoltre, se c'è bisogno di approfondire ciò che una libreria offre, basta dare un'occhiata al file index.ts di una qualsiasi libreria. Questo file funge da porta d'ingresso della libreria, mostrando tutte le funzionalità che offre in modo chiaro e conciso, libero dal disordine dei dettagli implementativi.
+
+E un piccolo consiglio: come puoi vedere, non è obbligatorio popolare ogni scope con ogni tipo di libreria fin dall'inizio. Ciò che è vitale è stabilire fin da subito quali librerie sono necessarie e quali no, aderendo alla gerarchia delle librerie. Questo approccio assicura una struttura di progetto pulita e snella, dove librerie ben definite brillano più di uno spazio affollato di librerie ambigue.
+
+<Alert variant="warning" title="Nota">
+Questo esempio serve come guida illustrativa per fornire una panoramica completa. Non tutti i progetti richiedono una compartimentazione così distinta; a volte, meno è meglio, o la struttura potrebbe essere intrinsecamente complessa. Tuttavia, avere un quadro chiaro del framework del progetto prima di procedere, e stabilire regole per mantenerne l'integrità nel tempo, è indispensabile per la salute e la scalabilità a lungo termine del progetto.
+</Alert>
+
+## Consigli Pro per Navigare Nx 🛠️
+
+### Creare Regole di Import
+
+Nx ci permette di mantenere standard di qualità e consistenza attraverso regole di import personalizzabili. Utilizzando i tag, possiamo creare una rete di linee guida, generando errori o warning durante lo sviluppo se queste regole vengono aggirate. Questa funzionalità assicura che le librerie aderiscano ai principi architetturali stabiliti fin dall'inizio.
+
+Ad esempio, immagina di implementare una regola che incapsula l'essenza della struttura del nostro progetto:
+
+```json
+// .eslintrc.json
+{
+  // ... more ESLint config here
+
+  // @nx/enforce-module-boundaries should already exist within an "overrides"
+  // block using "files": ["*.ts", "*.tsx", "*.js", "*.jsx"]
+  "@nx/enforce-module-boundaries": [
+    "error",
+    {
+      "allow": [],
+      "depConstraints": [
+        {
+          "sourceTag": "scope:shared",
+          "onlyDependOnLibsWithTags": ["scope:shared"]
+        },
+        {
+          "sourceTag": "scope:frontend",
+          "onlyDependOnLibsWithTags": ["scope:shared", "scope:frontend"]
+        },
+        {
+          "sourceTag": "scope:mobile",
+          "onlyDependOnLibsWithTags": [
+            "scope:shared",
+            "scope:frontend",
+            "scope:mobile"
+          ]
+        }
+      ]
+    }
+  ]
+
+  // ... more ESLint config here
+}
+```
+
+Questa regola funge da guardiano, mantenendo l'integrità della struttura del nostro progetto assicurando che le librerie mobile restino nei binari designati, prendendo in prestito solo dai mondi frontend o shared.
+
+Se uno sviluppatore tenta inavvertitamente un import che viola questo decreto, Nx interviene:
+
+```typescript
+// Attempted import throwing an error due to violation of the predefined Nx rule
+import { unauthorizedLib } from '@myproject/backend';
+// This line triggers a warning or error
+```
+
+Correggere questo passo falso si allinea agli standard di Nx:
+
+```typescript
+// Corrected import adhering to the Nx rule
+import { authorizedFeature } from '@myproject/shared';
+// Now, this line complies with our project's architectural guidelines
+```
+
+Questi snippet mostrano la capacità di Nx non solo di guidare l'integrità strutturale del tuo progetto ma anche di applicarla attivamente, trasformando potenziali passi falsi in momenti di apprendimento e assicurando che l'architettura del tuo progetto rimanga consistente e scalabile.
+
+### Visualizzare con il Project Graph 📊
+
+Nx offre una funzionalità potente per visualizzare la struttura e le dipendenze del tuo progetto: il project graph. Questo grafo fornisce una panoramica chiara e concisa di come le tue librerie sono interconnesse, illuminando le relazioni tra di esse attraverso un'interfaccia web intuitiva.
+
+Eseguendo il comando:
+
+```bash
+nx graph
+```
+
+Lancerai una rappresentazione grafica dell'architettura del tuo progetto. Questo ausilio visivo è inestimabile per comprendere la complessa rete di dipendenze all'interno del tuo monorepo. Evidenzia come ogni libreria è collegata, aiutandoti a identificare potenziali aree di ottimizzazione, rilevare componenti strettamente accoppiati o semplicemente ottenere una migliore comprensione della struttura complessiva del progetto.
+
+Il project graph non è solo un'immagine statica; è uno strumento interattivo che ti permette di zoomare su librerie specifiche, tracciare i percorsi tra di esse e scoprire la struttura sottostante del tuo ecosistema applicativo. Sfruttando questa funzionalità, puoi prendere decisioni informate sul refactoring, assicurare l'aderenza alle linee guida architetturali e mantenere una codebase pulita e gestibile.
+
+### Sfruttare i Generator di Nx 🔧
+
+Anche con la pianificazione più accurata, le esigenze in evoluzione di un progetto possono coglierci di sorpresa. È qui che Nx interviene, offrendo flessibilità e supporto attraverso i suoi potenti generator. Questi strumenti aiutano a gestire il flusso e riflusso dei requisiti del progetto, rendendo facile adattarsi spostando librerie tra diversi scope o creandone di nuove in modo rapido ed efficiente.
+
+Ad esempio, se hai bisogno di spostare una libreria esistente in uno scope diverso, Nx semplifica enormemente questo processo. Con un singolo comando, puoi rilocare una libreria e Nx si occupa del lavoro pesante, aggiornando la configurazione del progetto e tutti gli import rilevanti:
+
+```bash
+# Command to move 'frontend-features-auth' library to 'libs/shared/auth'
+nx g mv --project frontend-features-auth --destination libs/shared/auth
+```
+
+Questo comando dice a Nx di spostare la libreria frontend-features-auth nella directory libs/shared/auth. Nx gestisce gli aggiustamenti necessari, assicurando che tutti i riferimenti a questa libreria nel tuo progetto puntino alla nuova posizione. Questa funzionalità è particolarmente utile per mantenere una codebase pulita e organizzata, permettendo alla struttura del tuo progetto di evolversi senza intoppi insieme ai suoi requisiti.
+
+I generator di Nx non servono solo a spostare librerie; servono anche a crearne di nuove con facilità. Seguono i tuoi template e le strutture predefinite, assicurando che le nuove aggiunte aderiscano alle linee guida architetturali e allo stile del tuo progetto, mantenendo così consistenza e qualità in tutta la codebase.
+
+## Conclusioni: Il Vero Potere di Nx 🚀
+
+A mio avviso, la vera forza di Nx non risiede nel suo vasto ecosistema di plugin; piuttosto, brilla attraverso la sua capacità di integrarsi perfettamente con una filosofia di sviluppo che viene spesso trascurata in favore di soluzioni più flessibili, seppur meno strutturate. Nx non è una risposta universale, e riconosco che per progetti più piccoli, il suo approccio strutturato potrebbe inizialmente sembrare eccessivo. Tuttavia, credo ci sia un confine sottile dove questo approccio può essere trasformativo, un confine che viene troppo spesso ignorato.
+
+Se sei curioso di scoprire come Nx può migliorare la gestione dei tuoi progetti, ti consiglio vivamente di immergerti nella [documentazione ufficiale](https://nx.dev/). È completa, chiara e concisa, fornendo spunti su come Nx può scalare con progetti di qualsiasi dimensione. Per un approfondimento, dai un'occhiata a queste sezioni illuminanti: [Application and Libraries](https://nx.dev/concepts/more-concepts/applications-and-libraries), [Grouping Libraries](https://nx.dev/concepts/more-concepts/grouping-libraries) e [Library Types](https://nx.dev/concepts/more-concepts/library-types).
+
+Spero che questa esplorazione di Nx abbia fatto luce sui suoi potenziali benefici per i tuoi progetti. Ma soprattutto, buon coding!
+
+<Alert variant="info" title="Articolo Importato">
+Questo articolo è stato originariamente pubblicato il 19 agosto 2024 su una versione precedente di questo blog. È stato importato qui con piccoli aggiustamenti di formattazione.
+</Alert>

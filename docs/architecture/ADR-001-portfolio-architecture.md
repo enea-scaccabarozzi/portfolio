@@ -42,19 +42,49 @@ collections: {
     pattern: 'blog/**/*.mdx',
     schema: s.object({
       title: s.string().max(99),
-      slug: s.slug('posts'),
+      slug: s.string(),           // plain string — duplicates across locales
+      lang: s.enum(['en', 'it']), // per-article language
       date: s.isodate(),
       description: s.string().max(200),
       tags: s.array(s.string()).default([]),
-      metadata: s.metadata(),   // reading time, word count
-      toc: s.toc(),             // auto-generated table of contents
+      metadata: s.metadata(),     // reading time, word count
+      toc: s.toc(),               // auto-generated table of contents
       content: s.mdx(),
     }).transform(data => ({ ...data, permalink: `/blog/${data.slug}` })),
   },
 }
 
-// Usage in pages:
-import { posts } from '.velite'
+// Usage in pages — via locale-aware helpers, not direct import:
+import { getPost, getPostList, getAllSlugs } from '@/lib/blog'
+```
+
+Content is organized in per-article directories with one MDX file per language:
+
+```
+content/blog/
+  neverthrow-rop/
+    en.mdx
+    it.mdx
+  thinking-in-nx/
+    en.mdx
+    it.mdx
+```
+
+#### 1b. Blog i18n Resolution Layer
+
+Pages do not import `posts` directly. A helper module (`src/lib/blog.ts`) encapsulates locale-aware lookup with a fallback chain:
+
+1. Exact match: `slug === target && lang === locale`
+2. English fallback: `slug === target && lang === 'en'`
+3. Any available: `slug === target` (first match)
+
+The list page deduplicates by slug, preferring the active locale's version.
+
+```ts
+// src/lib/blog.ts
+export function getPost(slug: string, locale: Locale) { /* fallback chain */ }
+export function getPostList(locale: Locale) { /* deduplicated, locale-preferred */ }
+export function getAllSlugs() { /* unique slugs for generateStaticParams */ }
 ```
 
 #### 2. Route-Based i18n (No Library)
@@ -87,21 +117,22 @@ Data files (experiences, projects) store content as `Record<Locale, string>` and
 
 ## Implementation Phases
 
-| Phase              | What Changed                                                       |
-| ------------------ | ------------------------------------------------------------------ |
-| 1. Scaffolding     | Next.js + Tailwind + Biome + Lefthook + Bun base setup             |
-| 2. Design system   | Typography tokens, header/footer, page transitions (Framer Motion) |
-| 3. Home page       | Professional intro, navigation links                               |
-| 4. Experience page | Timeline list with locale-aware data from TypeScript file          |
-| 5. Projects page   | OSS contributions list with tech stack tags                        |
-| 6. Blog system     | Velite pipeline, MDX rendering, post index + detail pages, TOC     |
-| 7. SEO & deploy    | Sitemap, robots.txt, OG images, static export verification         |
-| 8. i18n            | `[locale]` routing, translation files, locale-aware metadata       |
+| Phase              | What Changed                                                               |
+| ------------------ | -------------------------------------------------------------------------- |
+| 1. Scaffolding     | Next.js + Tailwind + Biome + Lefthook + Bun base setup                     |
+| 2. Design system   | Typography tokens, header/footer, page transitions (Framer Motion)         |
+| 3. Home page       | Professional intro, navigation links                                       |
+| 4. Experience page | Timeline list with locale-aware data from TypeScript file                  |
+| 5. Projects page   | OSS contributions list with tech stack tags                                |
+| 6. Blog system     | Velite pipeline, MDX rendering, post index + detail pages, TOC             |
+| 7. SEO & deploy    | Sitemap, robots.txt, OG images, static export verification                 |
+| 8. i18n            | `[locale]` routing, translation files, locale-aware metadata               |
+| 9. Blog i18n       | Per-article `lang` field, locale fallback helpers, directory-based content |
 
 ## Current Structure
 
 ```
-content/blog/              # MDX blog posts (Velite source)
+content/blog/              # MDX blog posts — per-article directories with en.mdx / it.mdx
 src/
 ├── app/
 │   ├── layout.tsx          # Root layout (html, body, fonts)
@@ -127,6 +158,7 @@ src/
 │   ├── layout/             # Header, footer
 │   └── mdx/                # Custom MDX components (alert, etc.)
 └── lib/
+    ├── blog.ts             # Locale-aware post resolution (getPost, getPostList, getAllSlugs)
     ├── data.ts             # Experience/project data with locale accessors
     ├── format.ts           # Date formatting utilities
     ├── metadata.ts         # Site config and metadata helpers
@@ -144,3 +176,9 @@ src/
 - **No `next-mdx-remote`** — archived Feb 2026; Velite chosen as maintained alternative
 - **No dark mode** (initially) — palette defined but not implemented
 - **No parallax/scroll-triggered animations** — intentionally excluded for timelessness
+
+## Updates
+
+| Date       | Task | Summary                                                                                          |
+| ---------- | ---- | ------------------------------------------------------------------------------------------------ |
+| April 2026 | 004  | Blog i18n: added `lang` field to Velite schema, per-article directories, locale fallback helpers |

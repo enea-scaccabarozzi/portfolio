@@ -1,0 +1,324 @@
+---
+title: "NeverThrow e la Railway Oriented Programming in TypeScript"
+slug: neverthrow-rop
+lang: it
+date: 2024-10-13
+description: "NeverThrow porta la Railway Oriented Programming in TypeScript, sostituendo try-catch con i tipi Result per una gestione degli errori più sicura."
+tags: ["neverthrow", "railway-oriented-programming", "dx"]
+---
+
+Qualche mese fa ho presentato [NeverThrow](https://github.com/supermacro/neverthrow) come un potenziale punto di svolta per la gestione degli errori in TypeScript. Da allora, dopo averlo usato intensamente, mi sono reso conto che la mia impressione iniziale ne aveva appena scalfito la superficie. Oggi proverò ad andare più a fondo, sperando in un risultato più interessante.
+
+Quindi, cos'è NeverThrow? È una libreria open-source che ripensa la gestione degli errori introducendo il concetto di Railway Oriented Programming (ROP) in TypeScript. Naturalmente sorgono due domande: primo, cos'è la ROP, e secondo, perché abbiamo bisogno di un'alternativa alla tradizionale gestione delle eccezioni?
+
+## L'Inferno del Try-Catch
+
+Partiamo dalla seconda domanda: perché abbandonare un paradigma ben consolidato in favore di qualche oscuro pattern funzionale? Per la stessa ragione per cui scegliamo TypeScript rispetto a JavaScript—per una migliore esperienza di sviluppo. A un certo punto abbiamo capito che la flessibilità di un linguaggio debolmente tipizzato era più un ostacolo che un aiuto nella scrittura di codice manutenibile. Entra in scena TypeScript, con un sistema di tipi che ci fa innamorare di nuovo di JavaScript (o, quantomeno, tollerarlo un po' meglio).
+
+Il mio punto è che affidarsi alle eccezioni per gestire gli errori è come sostituire metà delle annotazioni di tipo con `any`, cosa che, come tutti sappiamo, *non è consigliabile*.
+
+Mi spiego: immagina di avere questa funzione nella tua libreria *(dai un'occhiata a questo [post](/it/blog/thinking-in-nx) se ti chiedi perché parlo così di lib)* dedicata all'interazione con il database:
+
+```typescript
+// lib.ts
+const savePosts = async (data: IPost[]): Promise<DbResult<IPost>[]> => {
+  if (data.some((post) => !validatePost(post))) throw new Error('Invalid post data provided');
+
+  return db.insert(posts)
+        .values(data.map((post) => postDbAdapter(post)))
+        .returning();
+}
+
+// app.ts
+const savedPosts = await savePosts(toBeSaved);
+// Now I can just treat savedPosts as the correct result...
+```
+
+A prima vista, tutto sembra a posto. Il codice è chiaro, le annotazioni di tipo sono complete e la funzione è concisa. I veri problemi emergono quando questa funzione viene usata. È facile immaginare qualcuno che chiama questa funzione dimenticando di avvolgerla in un blocco `try-catch`. Dopotutto, TypeScript non si lamenta, ESLint non urla, e puoi usare il valore restituito senza problemi.
+
+Ma ecco il punto: *nel mondo reale, le cose vanno storte*. Un post potrebbe essere corrotto, il database potrebbe essere irraggiungibile, o le migration potrebbero essere fuori sincrono. In una sola riga abbiamo introdotto almeno tre potenziali bug che potrebbero rovinare il venerdì sera di qualcuno, e sono bug che saranno difficili da debuggare.
+
+Quindi perché TypeScript non ci avvisa se c'è un problema? Perché TypeScript non lo sa. Non può stabilire se un blocco `try-catch` è pronto a gestire quell'eccezione o se raggiungerà il main event loop e farà crashare il programma. Per design, le eccezioni lasciano la gestione degli errori interamente sulle spalle dello sviluppatore. Questo comportamento si allinea con la natura dinamica di linguaggi come JavaScript e Python, ma risulta fuori posto in TypeScript.
+
+Per fortuna, questo problema è stato affrontato dalla maggior parte dei linguaggi tipizzati moderni. Allora perché non trarne ispirazione? Possiamo iniziare marcando il prototipo di una funzione per indicare la potenziale presenza di errori:
+
+```typescript
+// lib.ts
+const safeSavePosts = async (data: IPost[]): Promise<DbResult<IPost>[] | null> => {
+  if (data.some((post) => !validatePost(post))) return null;
+
+  try {
+    return db.insert(posts)
+        .values(data.map((post) => postDbAdapter(post)))
+        .returning();
+  } catch(error) {
+    return null;
+  }
+}
+
+// app.ts
+const savedPosts = await safeSavePosts(toBeSaved);
+
+// Now I have to consider the failure path before proceeding
+if (!savedPosts) {
+  dispatchError('Unable to save posts');
+}
+```
+
+Tuttavia, restituendo null, perdiamo molte informazioni sull'errore stesso, rendendo difficile risalire alla causa originale. Quindi, sebbene questo sia un miglioramento, non è sufficiente per salvare i nostri venerdì sera.
+
+## Railway Oriented Programming e NeverThrow
+
+Dopo mesi di ricerche, mi sono imbattuto in un [talk](https://vimeo.com/113707214) di Scott Wlaschin a [NDC London](https://ndclondon.com/) 2014. Il concetto è semplice: separare l'happy path dal percorso di errore. Scott spiega i dettagli tecnici in diversi post e video, quindi non entrerò troppo nei tecnicismi. La bellezza è che questo approccio non richiede una conoscenza approfondita della programmazione funzionale o della teoria delle categorie.
+
+Per noi sviluppatori TypeScript, [@supermacro](https://github.com/supermacro) mantiene da anni un repository che porta il concetto di ROP in TypeScript. L'idea centrale è usare un tipo, `Result<T, E>`, che rappresenta o un successo `Ok<T>` o un errore `Err<E>`. Pensatelo come `std::result` di Rust o la monade Either.
+
+Solo con questo tipo base, otteniamo diversi vantaggi:
+
+- Quando una funzione restituisce un Result, sappiamo che potrebbe produrre un errore
+- TypeScript ci obbliga a gestire questi errori prima di accedere al risultato, dandoci piena type safety
+- Possiamo aggiungere tipi di errore personalizzati, in questo modo:
+
+```typescript
+// types.ts
+enum AppErrorType {
+  HTTP_ERROR = 'HTTP_ERROR',
+  RECOVERABLE_ERROR = 'RECOVERABLE_ERROR',
+  DATABASE_ERROR = 'DATABASE_ERROR',
+}
+
+type BaseError = {
+  // add custom context to each error
+  type: AppErrorType;
+  stack: string[];
+  code: number;
+  timestamp: number;
+  internalMessage: string;
+  internalDetails?: string;
+  displayedMessage?: string;
+  displayedDetails?: string;
+};
+
+type DbError = BaseError & {
+  // specific errors will get specific contexts
+  type: AppErrorType.DATABASE_ERROR;
+  table?: string;
+  sqlMessage?: string;
+};
+
+type HttpError = BaseError & {
+  type: AppErrorType.HTTP_ERROR;
+  statusCode: number;
+};
+
+type RecoverableError = BaseError & {
+  type: AppErrorType.RECOVERABLE_ERROR;
+};
+
+// now we can define our AppError type and leverage discriminated unions for better type safety
+type AppError = DbError | HttpError | RecoverableError;
+
+type AppResult<T> = Result<T, AppError>;
+type AppResultAsync<T> = ResultAsync<T, AppError>; // more on that later ;)
+```
+
+Ma NeverThrow non si ferma qui—fornisce un ricco set di utility per gestire i dati in questo modo. Per mostrarne il potenziale, passiamo direttamente ad alcuni esempi di codice.
+
+Immagina di affrontare lo stesso problema discusso prima, ma questa volta con NeverThrow:
+
+```typescript
+// lib.ts
+const validatePost = (post: IPost): AppResult<IPost> => {
+  // validation logic here...
+}
+
+const postDbAdapter = (post: IPost): IPostDb => {
+  // adapter logic here...
+}
+
+const drizzleErrAdapter = (err: unknown): DbError => {
+  // populate context here...
+}
+
+export const savePosts = (data: IPost[]): AppResultAsync<DbResult<IPost>[]> => {
+  return Result.combine(data.map((post) => validatePost(post)))
+    .asyncAndThen((posts) => fromPromise(
+      db.insert(posts).values(
+        data.map((post) => postDbAdapter(post))
+      ).returning(),
+      (err) => drizzleErrAdapter(err)
+    ))
+}
+
+// app.ts
+savePosts(toBeSaved).map((savedPosts) => {
+    // Happy path :)
+    // savedPosts: IPost[]
+  }).mapErr((err) => {
+    // Failure path :(
+    // err: DbError
+  });
+```
+
+In questo snippet entrano in gioco diversi concetti:
+
+- `AppResultAsync`: Un result "promise-like" che preserva la concatenabilità di NeverThrow
+- `Result.combine`: Insieme a `Result.combineWithAllErrors` e le loro varianti async, permette di gestire operazioni su liste e processi asincroni concorrenti
+- `fromPromise`: Trasforma oggetti promise-like in ResultAsync
+- `map` e `asyncMap`: Consentono la manipolazione sincrona dei dati nell'happy path, per operazioni che non producono errori
+- `andThen` e `asyncAndThen`: Forniscono un modo per gestire manipolazioni sincrone che potrebbero fallire, passando elegantemente al percorso di errore
+- `mapErr` e `asyncMapErr`: Sono gli equivalenti per il percorso di errore, per la manipolazione degli errori
+- `orElse` e `asyncOrElse`: Offrono il recupero dagli errori quando necessario
+
+Ma non finisce qui, NeverThrow offre utility aggiuntive come `match`, `andTee`, `andThrough` e altre. Queste utility sono ben documentate con esempi, rendendo facile capire quando e dove ogni funzione è più utile. *E onestamente, potreste intuire il funzionamento di molte di esse semplicemente guardando i prototipi delle funzioni!*
+
+## Esempio Reale: Applicare NeverThrow nel Mondo Reale
+
+Basta teoria—mettiamo in pratica questo approccio con un esempio backend reale. *Il backend è l'ambientazione perfetta dato che la maggior parte del codice ruota attorno alla ricezione di input, all'elaborazione di dati, alla gestione degli errori e alla restituzione di risultati.*
+
+Iniziamo definendo alcune utility per creare e aggiungere contesto agli errori:
+
+```typescript
+const generateErr = (err: unknown): AppError => {
+  // Generate an AppError from a generic error
+  // Add any context you want to the error
+}
+
+const errAdapter = (err: unknown): Error<AppError> => {
+  return err(generateErr(err)); // Wrap errors using NeverThrow utility
+}
+```
+
+Successivamente, definiamo un user service per gestire la business logic relativa alle entità utente:
+
+```typescript
+const useUserService = () => {
+  // some async functions that could fail
+  const saveUserInfo: (user: User) => AppResultAsync<void> = /* ... */
+  const readUserWhitelist: () => AppResultAsync<number[]> = /* ... */;
+
+  // legacy exceptions code can be integrated with ease
+  const fetchUserInfo = (userId: number): AppResultAsync<UserInfo> => {
+    return fromPromise(
+      axios.get(`/users/${userId}`).then((res) => res.data),
+      (err) => errAdapter(err)
+    )
+  }
+
+  // a sync function that could fail
+  const validateUser: (user: User) => AppResult<User> = /* ... */
+
+  // a function with zero possible errors
+  const userDbAdapter: (user: User) => UserDb = /* ... */
+
+  return {
+    saveUserInfo,
+    readUserWhitelist,
+    fetchUserInfo,
+    validateUser,
+    userDbAdapter,
+  }
+}
+```
+
+Prima di usare questo service, definiamo un paio di funzioni per integrarlo in un'app Express:
+
+```typescript
+// adapt express response in case of error
+const raiseException = (res: Response, err: AppError) => {
+  res.status(err.type === AppErrorType.HTTP_ERROR ? err.statusCode : 500)
+     .send({
+       error: {
+         code: err.code,
+         message: err?.displayedMessage || "Internal server error",
+         details: err?.displayedDetails || "Something went wrong :(",
+       },
+     });
+};
+
+// handle result and convert it to an Express response
+const handleServiceResult = async <T>(
+  res: TypedResponse<T>, // custom type to add hinting on response object
+  result: AppResult<T> | AppResultAsync<T>
+): Promise<void> => {
+  result.map((data) => res.send(data)).mapErr((err) => raiseException(res, err));
+};
+```
+
+Infine, uniamo tutto in un controller, dove possiamo vedere il pieno beneficio di questa configurazione:
+
+```typescript
+const useUserController = () => {
+  const userService = useUserService();
+  // some others services defined like the user one
+  const analytics = useAnalyticsService();
+  const logger = useLogger();
+
+  const importUsersBulk = (
+    { body }: TypedRequest<number[]>, // same as TypedResponse but for requests
+    res: TypedResponse<User[]>
+  ) => {
+    const result = ResultAsync.combine(
+      // handle concurrency in parallel
+      // short circuit if one fails
+      body.map((userId) =>
+        userService
+          // each user id is mapped to a user result
+          .fetchUserInfo(userId)
+          // recover from http errors only
+          .orElse((error) =>
+            error.type === AppErrorType.HTTP_ERROR ? ok(null) : err(error)
+          )
+      )
+    )
+      // filters out all the recovered errors
+      .map((fetched) => fetched.filter((user) => user !== null))
+      // concatenate another async operation that could fail
+      .andThen((filtered) =>
+        userService.readUserWhitelist()
+          // thanks to closures whitelist and filtered can be accessed in the same scope
+          .map((whitelist) => filtered.filter((user) => whitelist.includes(user.id)))
+          // tap into the happy path to log some info without any modifications
+          .andTee((whitelisted) => logger.info(`Importing ${whitelisted.length} users...`))
+      )
+      // another async step concatenated in the happy path
+      .andThen((whitelisted) =>
+        // even complex operations can be done in parallel
+        ResultAsync.combine(
+          whitelisted
+            .andThen(userService.validateUser)
+            .map(userService.userDbAdapter)
+            .andThen(userService.saveUserInfo)
+        )
+      )
+      // tap into the happy path to perform an operation that could fail
+      .andThrough(analytics.trackUsersImported)
+      .andTee((imported) => logger.success(`Imported ${imported.length} users`));
+
+    // use the final result to update express response
+    return handleServiceResult(res, result);
+  };
+
+  return {
+    importUsersBulk,
+  };
+};
+```
+
+Per me, questo esempio dimostra davvero l'eleganza di un approccio ROP. Ogni possibile punto di fallimento è esplicito, e la gestione degli errori è imposta dal compilatore, risultando in codice molto più pulito e meno soggetto a errori rispetto a un groviglio di `if` o blocchi `try-catch` sparsi.
+
+Ho optato per un approccio più funzionale qui perché si allinea bene con la filosofia alla base della ROP, e francamente, spesso sembra più naturale per lo sviluppo backend (*ma questo è un altro blog post*). Detto questo, si potrebbe assolutamente integrare questa soluzione in un setup più orientato alla OOP—specialmente quando si lavora con un framework come NestJS *(🤢 (jk (maybe)))*.
+
+## Prossimi Passi
+
+Non posso raccomandare abbastanza il [talk](https://vimeo.com/113707214) di Scott Wlaschin sulla ROP. Espone i punti di forza (e le potenziali debolezze) di questo approccio in modo chiaro e convincente. I suoi [articoli](https://fsharpforfunandprofit.com/rop/) approfondiscono anche il lato più teorico della ROP, e sono un'ottima lettura se siete interessati alle basi accademiche.
+
+Per esempi più pratici, ne troverete alcuni in questo [repository](https://github.com/parlez-vous/server) dove usano questa tecnica per costruire un comment server. E, naturalmente, la [documentazione di NeverThrow](https://github.com/supermacro/neverthrow#api-documentation) fornisce una panoramica completa della semplice ma potente API della libreria.
+
+Per concludere, potete individuare e rimuovere tutti i code smell legati a problematiche specifiche della ROP nel vostro codebase grazie al [plugin ESLint per NeverThrow](https://github.com/mdbetancourt/eslint-plugin-neverthrow) che è stato rilasciato di recente.
+
+È tutto per ora—buon hacking, e alla prossima! 🚂🚂
+
+<Alert variant="info" title="Articolo Importato">
+Questo articolo è stato originariamente pubblicato il 13 ottobre 2024 su una versione precedente di questo blog. È stato importato qui con piccoli aggiustamenti di formattazione.
+</Alert>

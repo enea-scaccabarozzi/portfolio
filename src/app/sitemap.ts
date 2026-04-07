@@ -1,5 +1,5 @@
-import { posts } from '.velite'
 import type { MetadataRoute } from 'next'
+import { getAllPostSlugs } from '@/lib/blog'
 import { LOCALES } from '@/lib/i18n/config'
 import { siteConfig } from '@/lib/metadata'
 
@@ -17,9 +17,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   )
 
   const blogRoutes: MetadataRoute.Sitemap = LOCALES.flatMap(locale =>
-    posts.map(post => ({
-      url: `${siteConfig.url}/${locale}${post.permalink}`,
-      lastModified: new Date(post.date),
+    getAllPostSlugs().map(slug => ({
+      url: `${siteConfig.url}/${locale}/blog/${slug}`,
+      lastModified: new Date(),
       priority: 0.7,
     })),
   )

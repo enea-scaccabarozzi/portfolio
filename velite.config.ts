@@ -35,7 +35,8 @@ export default defineConfig({
       schema: s
         .object({
           title: s.string().max(99),
-          slug: s.slug('posts'),
+          slug: s.string(),
+          lang: s.enum(['en', 'it']),
           date: s.isodate(),
           description: s.string().max(200),
           tags: s.array(s.string()).default([]),

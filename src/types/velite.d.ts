@@ -8,6 +8,7 @@ declare module '.velite' {
   export interface Post {
     title: string
     slug: string
+    lang: 'en' | 'it'
     date: string
     description: string
     tags: string[]

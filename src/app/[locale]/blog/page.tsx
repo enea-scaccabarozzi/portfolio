@@ -1,6 +1,6 @@
-import { posts } from '.velite'
 import type { Metadata } from 'next'
 import { BlogPostTitle } from '@/components/blog-post-title'
+import { getPostsForLocale } from '@/lib/blog'
 import { formatDate } from '@/lib/format'
 import { getTranslations } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n/config'
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
 export default async function BlogPage({ params }: BlogPageProps) {
   const { locale } = (await params) as { locale: Locale }
   const t = getTranslations(locale)
-  const sorted = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const sorted = getPostsForLocale(locale)
 
   return (
     <div className="max-w-2xl mx-auto">

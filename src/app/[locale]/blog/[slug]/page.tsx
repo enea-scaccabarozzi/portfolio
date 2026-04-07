@@ -1,10 +1,10 @@
-import { posts } from '.velite'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { BlogArticleTitle } from '@/components/blog-article-title'
 import { BlogDisclaimer } from '@/components/mdx/blog-disclaimer'
 import { MDXContent } from '@/components/mdx-content'
 import { TableOfContents } from '@/components/toc'
+import { getAllPostSlugs, getPostForLocale } from '@/lib/blog'
 import { formatDate } from '@/lib/format'
 import { getTranslations } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n/config'
@@ -15,12 +15,12 @@ interface PostPageProps {
 }
 
 export function generateStaticParams() {
-  return posts.map(post => ({ slug: post.slug }))
+  return getAllPostSlugs().map(slug => ({ slug }))
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const { slug } = (await params) as { locale: Locale; slug: string }
-  const post = posts.find(p => p.slug === slug)
+  const { locale, slug } = (await params) as { locale: Locale; slug: string }
+  const post = getPostForLocale(slug, locale)
   if (!post) return {}
   return {
     title: post.title,
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       images: [{ url: '/og/default.png', width: 1200, height: 630 }],
     },
     alternates: {
-      canonical: `${siteConfig.url}/en/blog/${slug}`,
+      canonical: `${siteConfig.url}/${locale}/blog/${slug}`,
       languages: {
         it: `${siteConfig.url}/it/blog/${slug}`,
         en: `${siteConfig.url}/en/blog/${slug}`,
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export default async function PostPage({ params }: PostPageProps) {
   const { locale, slug } = (await params) as { locale: Locale; slug: string }
-  const post = posts.find(p => p.slug === slug)
+  const post = getPostForLocale(slug, locale)
   if (!post) notFound()
 
   const t = getTranslations(locale)
