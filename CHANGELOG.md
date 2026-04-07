@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/enea-scaccabarozzi/portfolio/compare/v1.0.1...v1.1.0) (2026-04-07)
+
+
+### Features
+
+* **blog:** add locale-aware blog with neverthrow-rop and thinking-in-nx articles ([ea428ca](https://github.com/enea-scaccabarozzi/portfolio/commit/ea428ca34480a5376df2a0aa706d27f14ad848f9))
+
 ## [1.0.1](https://github.com/enea-scaccabarozzi/portfolio/compare/v1.0.0...v1.0.1) (2026-04-05)
 
 
