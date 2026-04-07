@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/enea-scaccabarozzi/portfolio/compare/v1.1.0...v1.2.0) (2026-04-07)
+
+
+### Features
+
+* **seo:** add structured data, OG images, RSS feeds, favicon, and sitemap improvements ([0ab711c](https://github.com/enea-scaccabarozzi/portfolio/commit/0ab711cfac3d32ad3b98fc6a3e5286dd7494b861))
+
 ## [Unreleased]
 
 ### Added
