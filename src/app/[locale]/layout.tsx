@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { LangSetter } from '@/components/lang-setter'
 import { Footer } from '@/components/layout/footer'
 import { Header } from '@/components/layout/header'
-import { LayoutGroupWrapper } from '@/components/layout-group-wrapper'
 import { PageTransition } from '@/components/page-transition'
 import { getTranslations } from '@/lib/i18n'
 import { LOCALES, type Locale } from '@/lib/i18n/config'
@@ -48,15 +47,13 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   return (
     <>
       <LangSetter />
-      <LayoutGroupWrapper>
-        <div className="mx-auto max-w-5xl px-5 min-h-screen flex flex-col overflow-x-clip">
-          <Header />
-          <main className="flex-1 py-16 md:py-24">
-            <PageTransition>{children}</PageTransition>
-          </main>
-          <Footer locale={locale} />
-        </div>
-      </LayoutGroupWrapper>
+      <div className="mx-auto max-w-5xl px-5 min-h-screen flex flex-col overflow-x-clip">
+        <Header />
+        <main className="flex-1 py-16 md:py-24">
+          <PageTransition>{children}</PageTransition>
+        </main>
+        <Footer locale={locale} />
+      </div>
     </>
   )
 }
