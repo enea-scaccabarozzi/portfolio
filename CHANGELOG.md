@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/enea-scaccabarozzi/portfolio/compare/v1.2.0...v1.2.1) (2026-04-10)
+
+
+### Bug Fixes
+
+* update page transition logic to avoid UI stutterings ([8128223](https://github.com/enea-scaccabarozzi/portfolio/commit/81282233475b36659741db0f2a1921681dbb9731))
+
 ## [1.2.0](https://github.com/enea-scaccabarozzi/portfolio/compare/v1.1.0...v1.2.0) (2026-04-07)
 
 
